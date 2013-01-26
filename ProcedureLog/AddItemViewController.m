@@ -7,7 +7,6 @@
 //
 
 #import "AddItemViewController.h"
-#import "RecordAudioViewController.h"
 
 @interface AddItemViewController ()
 
@@ -15,23 +14,16 @@
 
 @implementation AddItemViewController
 
--(RecordAudioViewController *)recordAudioViewController
-{
-    if(!_recordAudioViewController)
-    {
-        self.readyToRecord = NO;
-
-        _recordAudioViewController = [[RecordAudioViewController alloc]initWithNibName:@"RecordAudioViewController" bundle:nil];
-    }
-    
-    return _recordAudioViewController;
-}
-
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
     if (self) {
-
+        self.audioSession = [AVAudioSession sharedInstance];
+        NSError *error = nil;
+        [self.audioSession setCategory:AVAudioSessionCategoryRecord error:&error];
+        if (error) {
+            NSLog(@"%@", error);
+        }
         // Custom initialization
     }
     return self;
@@ -45,10 +37,8 @@
     [self.tableView beginUpdates];
     cell.backgroundColor = [UIColor greenColor];
     
-    [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:3 inSection:0]] withRowAnimation:UITableViewRowAnimationTop];
-    [self.tableView endUpdates];
-    
-    //[self.view addSubview:self.recordAudioViewController.view];
+    [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:3 inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
+    [self.tableView endUpdates];    
 }
 
 - (void)viewDidLoad
@@ -100,6 +90,7 @@
     {
         if(self.readyToRecord)
         {
+            NSLog(@"recordy");
             static NSString *identifier = @"DoRecordAudioCell";
             cell = [tableView dequeueReusableCellWithIdentifier:identifier];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -113,7 +104,6 @@
     }
     else if(indexPath.row == 4)
     {
-        NSLog(@"menu");
         static NSString *identifier = @"MenuOptionsCell";
         cell = [tableView dequeueReusableCellWithIdentifier:identifier];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -133,7 +123,7 @@
     
     if(indexPath.row == 3 && self.readyToRecord)
     {
-        height = 160;
+        height = 120;
     }
     
     return height;
@@ -152,5 +142,101 @@
      [self.navigationController pushViewController:detailViewController animated:YES];
      */
 }
+
+//Audio stuff
+
+- (IBAction)cancelRecording:(id)sender
+{    
+    self.readyToRecord = NO;
+    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:3 inSection:0]];
+    
+    [self.tableView beginUpdates];
+    cell.backgroundColor = [UIColor greenColor];
+    
+    [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:3 inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
+    [self.tableView endUpdates];
+}
+
+-(IBAction)startOrStopRecording:(id)sender
+{    
+    if(self.numberOfSecondsRecordedFor > 0)
+    {
+        [self stopRecording];
+    }
+    else
+    {
+        [self startRecording];
+    }
+}
+
+- (AVAudioRecorder *)recorder
+{
+    if (!_recorder) {
+        NSString *soundFilePath = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:@"testRecording"];
+        
+        NSURL *recordURL = [NSURL fileURLWithPath:soundFilePath];
+        NSLog(@"Will record to: %@", recordURL);
+        
+        AudioChannelLayout channelLayout;
+        memset(&channelLayout, 0, sizeof(channelLayout));
+        channelLayout.mChannelLayoutTag = kAudioChannelLayoutTag_Mono;
+        
+        NSDictionary *recordSettings =
+        [NSDictionary dictionaryWithObjectsAndKeys:
+         [NSNumber numberWithInt:AAC_BIT_RATE], AVEncoderBitRateKey,
+         [NSNumber numberWithFloat: SAMPLE_RATE], AVSampleRateKey,
+         [NSNumber numberWithInt: kAudioFormatMPEG4AAC], AVFormatIDKey,
+         [NSNumber numberWithInt: 1], AVNumberOfChannelsKey,
+         [NSData dataWithBytes:&channelLayout length:sizeof(AudioChannelLayout)], AVChannelLayoutKey,
+         nil];
+        NSError *error = nil;
+        _recorder = [[AVAudioRecorder alloc] initWithURL:recordURL settings:recordSettings error:&error];
+        _recorder.delegate = self;
+        _recorder.meteringEnabled = YES;
+        
+        if (error) {
+            NSLog(@"%@", error);
+        }
+    }
+    
+    NSLog(@"recorder initialised");
+    return _recorder;
+}
+
+-(void)updatetimeRecorded
+{
+    self.numberOfSecondsRecordedFor++;
+    NSLog(@"%f", self.numberOfSecondsRecordedFor);
+}
+
+-(void)startRecording
+{
+    NSLog(@"recording now...");
+    self.recorder = nil;
+    [self.recorder prepareToRecord];
+    [self.recorder record];
+    self.updateTimer = [NSTimer scheduledTimerWithTimeInterval:1/60.0f target:self selector:@selector(updatetimeRecorded) userInfo:nil repeats:YES];
+}
+
+-(void)stopRecording
+{
+    NSLog(@"stop recording");
+    
+    [self.updateTimer invalidate];
+    self.updateTimer = nil;
+    
+    self.numberOfSecondsRecordedFor = 0;
+    [self.recorder stop];
+    
+    self.readyToRecord = NO;
+    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:3 inSection:0]];
+    
+    [self.tableView beginUpdates];
+    cell.backgroundColor = [UIColor greenColor];
+    
+    [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:3 inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
+    [self.tableView endUpdates];
+}
+
 
 @end

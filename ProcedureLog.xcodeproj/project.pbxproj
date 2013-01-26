@@ -8,9 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		C7253CBC16B410CB009B5CBE /* RecordAudioCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C7253CBB16B410CB009B5CBE /* RecordAudioCell.m */; };
-		C7253CC216B411CC009B5CBE /* RecordAudioViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C7253CC016B411CC009B5CBE /* RecordAudioViewController.m */; };
-		C7253CC316B411CC009B5CBE /* RecordAudioViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C7253CC116B411CC009B5CBE /* RecordAudioViewController.xib */; };
 		C7253CC916B4192F009B5CBE /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7253CC816B4192E009B5CBE /* AVFoundation.framework */; };
+		C7253CCC16B42486009B5CBE /* DoRecordAudioCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C7253CCB16B42485009B5CBE /* DoRecordAudioCell.m */; };
 		FD4103F716B3F19D001E92C4 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD4103F616B3F19D001E92C4 /* UIKit.framework */; };
 		FD4103F916B3F19D001E92C4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD4103F816B3F19D001E92C4 /* Foundation.framework */; };
 		FD4103FB16B3F19D001E92C4 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD4103FA16B3F19D001E92C4 /* CoreGraphics.framework */; };
@@ -76,10 +75,9 @@
 /* Begin PBXFileReference section */
 		C7253CBA16B410CB009B5CBE /* RecordAudioCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecordAudioCell.h; sourceTree = "<group>"; };
 		C7253CBB16B410CB009B5CBE /* RecordAudioCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecordAudioCell.m; sourceTree = "<group>"; };
-		C7253CBF16B411CC009B5CBE /* RecordAudioViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecordAudioViewController.h; sourceTree = "<group>"; };
-		C7253CC016B411CC009B5CBE /* RecordAudioViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecordAudioViewController.m; sourceTree = "<group>"; };
-		C7253CC116B411CC009B5CBE /* RecordAudioViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RecordAudioViewController.xib; sourceTree = "<group>"; };
 		C7253CC816B4192E009B5CBE /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		C7253CCA16B42485009B5CBE /* DoRecordAudioCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DoRecordAudioCell.h; sourceTree = "<group>"; };
+		C7253CCB16B42485009B5CBE /* DoRecordAudioCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DoRecordAudioCell.m; sourceTree = "<group>"; };
 		FD4103F216B3F19D001E92C4 /* ProcedureLog.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProcedureLog.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FD4103F616B3F19D001E92C4 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		FD4103F816B3F19D001E92C4 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -205,16 +203,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		C7253CBE16B411B2009B5CBE /* AudioRecord */ = {
-			isa = PBXGroup;
-			children = (
-				C7253CBF16B411CC009B5CBE /* RecordAudioViewController.h */,
-				C7253CC016B411CC009B5CBE /* RecordAudioViewController.m */,
-				C7253CC116B411CC009B5CBE /* RecordAudioViewController.xib */,
-			);
-			name = AudioRecord;
-			sourceTree = "<group>";
-		};
 		FD4103E716B3F19D001E92C4 = {
 			isa = PBXGroup;
 			children = (
@@ -406,7 +394,6 @@
 		FD41048D16B3FB6B001E92C4 /* App */ = {
 			isa = PBXGroup;
 			children = (
-				C7253CBE16B411B2009B5CBE /* AudioRecord */,
 				FD41048F16B3FB75001E92C4 /* Model */,
 				FD41048E16B3FB70001E92C4 /* UI */,
 			);
@@ -473,6 +460,8 @@
 				FD4104C816B403B7001E92C4 /* MenuOptionsCell.m */,
 				C7253CBA16B410CB009B5CBE /* RecordAudioCell.h */,
 				C7253CBB16B410CB009B5CBE /* RecordAudioCell.m */,
+				C7253CCA16B42485009B5CBE /* DoRecordAudioCell.h */,
+				C7253CCB16B42485009B5CBE /* DoRecordAudioCell.m */,
 			);
 			name = AddItemViewController;
 			sourceTree = "<group>";
@@ -541,7 +530,6 @@
 				FD41043016B3F62A001E92C4 /* 16-line-chart@2x.png in Resources */,
 				FD4104A216B3FEF7001E92C4 /* 09-chat-2.png in Resources */,
 				FD4104A316B3FEF7001E92C4 /* 09-chat-2@2x.png in Resources */,
-				C7253CC316B411CC009B5CBE /* RecordAudioViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -589,7 +577,7 @@
 				FD4104C616B402DC001E92C4 /* CommentCell.m in Sources */,
 				FD4104C916B403B7001E92C4 /* MenuOptionsCell.m in Sources */,
 				C7253CBC16B410CB009B5CBE /* RecordAudioCell.m in Sources */,
-				C7253CC216B411CC009B5CBE /* RecordAudioViewController.m in Sources */,
+				C7253CCC16B42486009B5CBE /* DoRecordAudioCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

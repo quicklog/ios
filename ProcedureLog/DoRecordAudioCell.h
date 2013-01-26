@@ -7,7 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <AVFoundation/AVFoundation.h>
 
-@interface DoRecordAudioCell : UIViewController
+@interface DoRecordAudioCell : UITableViewCell <AVAudioRecorderDelegate, AVAudioSessionDelegate>
+
+@property (nonatomic, retain) IBOutlet UIButton * startStopButton;
+
+@property (nonatomic, retain) IBOutlet UIProgressView * recordingProgress;
+@property (nonatomic, retain) IBOutlet UILabel * recordingProgressLabel;
 
 @end
