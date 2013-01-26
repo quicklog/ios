@@ -7,7 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "RecordAudioViewController.h"
 
 @interface AddItemViewController : UITableViewController
+
+@property (nonatomic, retain) RecordAudioViewController * recordAudioViewController;
+@property (nonatomic, retain) UITableViewCell * recordAudioCell;
+
+-(IBAction)recordAudio:(id)sender;
 
 @end

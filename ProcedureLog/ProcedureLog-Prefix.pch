@@ -13,3 +13,8 @@
     #import <Foundation/Foundation.h>
     #import "CoreData+MagicalRecord.h"
 #endif
+
+#define LONG_RECORDING_TIME 600
+#define SHORT_RECORDING_TIME 300
+#define SAMPLE_RATE 44100
+#define AAC_BIT_RATE 256000

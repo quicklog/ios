@@ -7,6 +7,7 @@
 //
 
 #import "AddItemViewController.h"
+#import "RecordAudioViewController.h"
 
 @interface AddItemViewController ()
 
@@ -14,24 +15,34 @@
 
 @implementation AddItemViewController
 
+-(RecordAudioViewController *)recordAudioViewController
+{
+    if(!_recordAudioViewController)
+    {
+        _recordAudioViewController = [[RecordAudioViewController alloc]initWithNibName:@"RecordAudioViewController" bundle:nil];
+    }
+    
+    return _recordAudioViewController;
+}
+
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
     if (self) {
+
         // Custom initialization
     }
     return self;
 }
 
+-(IBAction)recordAudio:(id)sender
+{
+    [self.view addSubview:self.recordAudioViewController.view];
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
- 
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
 }
 
 - (void)didReceiveMemoryWarning
@@ -44,66 +55,65 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-#warning Potentially incomplete method implementation.
-    // Return the number of sections.
-    return 0;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-#warning Incomplete method implementation.
-    // Return the number of rows in the section.
-    return 0;
+    return 5;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    UITableViewCell *cell  = nil;
     
-    // Configure the cell...
+    if(indexPath.row  == 0)
+    {
+        static NSString *identifier = @"ProcedureCell";
+        cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    }
+    else if(indexPath.row == 1)
+    {
+        static NSString *identifier = @"RatingCell";
+        cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    }
+    else if(indexPath.row == 2)
+    {
+        static NSString *identifier = @"CommentCell";
+        cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    }
+    else if(indexPath.row == 3)
+    {
+        static NSString *identifier = @"RecordAudioCell";
+        cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    }
+    else if(indexPath.row == 4)
+    {
+        NSLog(@"menu");
+        static NSString *identifier = @"MenuOptionsCell";
+        cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    }
     
     return cell;
 }
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+-(float)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
+    float height = 85;
+    
+    if(indexPath.row == 2)
+    {
+        height = 214;
+    }
+    
+    return height;
 }
-*/
 
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }   
-    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
 
 #pragma mark - Table view delegate
 

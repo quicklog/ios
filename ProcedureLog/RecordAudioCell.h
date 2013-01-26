@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface RecordAudioCell : UIViewController
+@interface RecordAudioCell : UITableViewCell
+
+@property (nonatomic, retain) IBOutlet UIButton * recordAudioButton;
 
 @end
