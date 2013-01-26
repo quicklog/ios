@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+#import "RSTapRateView.h"
+
 @interface RatingCell : UITableViewCell
+
+@property (strong, nonatomic) IBOutlet RSTapRateView *starRatingView;
 
 @end

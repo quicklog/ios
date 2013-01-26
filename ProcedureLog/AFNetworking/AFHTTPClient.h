@@ -21,34 +21,91 @@
 // THE SOFTWARE.
 
 #import <Foundation/Foundation.h>
-#import "AFHTTPRequestOperation.h"
 
+@class AFHTTPRequestOperation;
+@protocol AFHTTPClientOperation;
 @protocol AFMultipartFormData;
 
 /**
- `AFHTTPClient` objects encapsulates the common patterns of communicating with an application, webservice, or API. It encapsulates persistent information, like base URL, authorization credentials, and HTTP headers, and uses them to construct and manage the execution of HTTP request operations.
+ Method used to encode parameters into request body 
+ */
+typedef enum {
+    AFFormURLParameterEncoding,
+    AFJSONParameterEncoding,
+    AFPropertyListParameterEncoding,
+} AFHTTPClientParameterEncoding;
+
+/**
+ Returns a string, replacing certain characters with the equivalent percent escape sequence based on the specified encoding.
  
- In its default implementation, `AFHTTPClient` sets the following HTTP headers:
+ @param string The string to URL encode
+ @param encoding The encoding to use for the replacement. If you are uncertain of the correct encoding, you should use UTF-8 (NSUTF8StringEncoding), which is the encoding designated by RFC 3986 as the correct encoding for use in URLs.
  
- - `Accept: application/json`
- - `Accept-Encoding: gzip`
- - `Accept-Language: #{[NSLocale preferredLanguages]}, en-us;q=0.8`
- - `User-Agent: #{generated user agent}`
+ @discussion The characters escaped are all characters that are not legal URL characters (based on RFC 3986), including any whitespace, punctuation, or special characters.
  
- You can override these HTTP headers or define new ones using `setDefaultHeader:value:`. 
+ @return A URL-encoded string. If it does not need to be modified (no percent escape sequences are missing), this function may merely return string argument.
+ */
+extern NSString * AFURLEncodedStringFromStringWithEncoding(NSString *string, NSStringEncoding encoding);
+
+/**
+ Returns a query string constructed by a set of parameters, using the specified encoding.
  
- # Subclassing Notes
+ @param parameters The parameters used to construct the query string
+ @param encoding The encoding to use in constructing the query string. If you are uncertain of the correct encoding, you should use UTF-8 (NSUTF8StringEncoding), which is the encoding designated by RFC 3986 as the correct encoding for use in URLs.
  
- It is strongly recommended that you create an `AFHTTPClient` subclass for each website or web application that your application communicates with, and in each subclass, defining a method that returns a singleton object that acts as single a shared HTTP client that holds authentication credentials and other configuration for the entire application.
+ @discussion Query strings are constructed by collecting each key-value pair, URL-encoding the string value of the key and value (by sending `-description` to each), constructing a string in the form "key=value", and then joining the components with "&". The constructed query string does not include the ? character used to delimit the query component.
+ 
+ @return A URL-encoded query string
+ */
+extern NSString * AFQueryStringFromParametersWithEncoding(NSDictionary *parameters, NSStringEncoding encoding);
+
+/**
+ `AFHTTPClient` captures the common patterns of communicating with an web application over HTTP. It encapsulates information like base URL, authorization credentials, and HTTP headers, and uses them to construct and manage the execution of HTTP request operations.
+ 
+ ## Automatic Content Parsing
+ 
+ Instances of `AFHTTPClient` may specify which types of requests it expects and should handle by registering HTTP operation classes for automatic parsing. Registered classes will determine whether they can handle a particular request, and then construct a request operation accordingly in `enqueueHTTPRequestOperationWithRequest:success:failure`. See `AFHTTPClientOperation` for further details.
+ 
+ ## Subclassing Notes
+ 
+ In most cases, one should create an `AFHTTPClient` subclass for each website or web application that your application communicates with. It is often useful, also, to define a class method that returns a singleton shared HTTP client in each subclass, that persists authentication credentials and other configuration across the entire application.
  
  ## Methods to Override
  
- If an `AFHTTPClient` wishes to change the way request parameters are encoded, then the base implementation of `requestWithMethod:path:parameters: should be overridden. Otherwise, it should be sufficient to take the `super` implementation, and configure the resulting `NSMutableURLRequest` object accordingly.
+ To change the behavior of all url request construction for an `AFHTTPClient` subclass, override `requestWithMethod:path:parameters`.
+ 
+ To change the behavior of all request operation construction for an `AFHTTPClient` subclass, override `enqueueHTTPRequestOperationWithRequest:success:failure`.
+ 
+ ## Default Headers
+ 
+ By default, `AFHTTPClient` sets the following HTTP headers:
+ 
+ - `Accept-Encoding: gzip`
+ - `Accept-Language: ([NSLocale preferredLanguages]), en-us;q=0.8`
+ - `User-Agent: (generated user agent)`
+ 
+ You can override these HTTP headers or define new ones using `setDefaultHeader:value:`.
+ 
+ ## URL Construction Using Relative Paths
+ 
+ Both `requestWithMethod:path:parameters` and `multipartFormRequestWithMethod:path:parameters:constructingBodyWithBlock:` construct URLs from the path relative to the `baseURL`, using `NSURL +URLWithString:relativeToURL:`. Below are a few examples of how `baseURL` and relative paths interract:
+ 
+ ```
+ NSURL *baseURL = [NSURL URLWithString:@"http://example.com/v1/"];
+ [NSURL URLWithString:@"foo" relativeToURL:baseURL]; // http://example.com/v1/foo
+ [NSURL URLWithString:@"foo?bar=baz" relativeToURL:baseURL]; // http://example.com/v1/foo?bar=baz
+ [NSURL URLWithString:@"/foo" relativeToURL:baseURL]; // http://example.com/foo
+ [NSURL URLWithString:@"foo/" relativeToURL:baseURL]; // http://example.com/v1/foo
+ [NSURL URLWithString:@"/foo/" relativeToURL:baseURL]; // http://example.com/foo/
+ [NSURL URLWithString:@"http://example2.com/" relativeToURL:baseURL]; // http://example2.com/
+ ```
  */
 @interface AFHTTPClient : NSObject {
 @private
     NSURL *_baseURL;
     NSStringEncoding _stringEncoding;
+    AFHTTPClientParameterEncoding _parameterEncoding;
+    NSMutableArray *_registeredHTTPOperationClassNames;
     NSMutableDictionary *_defaultHeaders;
     NSOperationQueue *_operationQueue;
 }
@@ -66,6 +123,11 @@
  The string encoding used in constructing url requests. This is `NSUTF8StringEncoding` by default.
  */
 @property (nonatomic, assign) NSStringEncoding stringEncoding;
+
+/**
+ The `AFHTTPClientParameterEncoding` value corresponding to how parameters are encoded into a request body. This is `AFFormURLParameterEncoding` by default.
+ */
+@property (nonatomic, assign) AFHTTPClientParameterEncoding parameterEncoding;
 
 /**
  The operation queue which manages operations enqueued by the HTTP client.
@@ -90,11 +152,37 @@
  
  @param url The base URL for the HTTP client. This argument must not be nil.
  
- @discussion This is the designated initializer for `AFHTTPClient`
+ @discussion This is the designated initializer.
  
  @return The newly-initialized HTTP client
  */
 - (id)initWithBaseURL:(NSURL *)url;
+
+///----------------------------------
+/// @name Managing HTTP Operations
+///----------------------------------
+
+/**
+ Attempts to register a subclass of `AFHTTPRequestOperation`, adding it to a chain to automatically generate request operations from a URL request.
+ 
+ @param The subclass of `AFHTTPRequestOperation` to register
+ 
+ @return `YES` if the registration is successful, `NO` otherwise. The only failure condition is if `operationClass` does is not a subclass of `AFHTTPRequestOperation`.
+ 
+ @discussion When `enqueueHTTPRequestOperationWithRequest:success:failure` is invoked, each registered class is consulted in turn to see if it can handle the specific request. The first class to return `YES` when sent a `canProcessRequest:` message is used to create an operation using `initWithURLRequest:` and do `setCompletionBlockWithSuccess:failure:`. There is no guarantee that all registered classes will be consulted. Classes are consulted in the reverse order of their registration. Attempting to register an already-registered class will move it to the top of the list.
+ 
+ @see `AFHTTPClientOperation`
+ */
+- (BOOL)registerHTTPOperationClass:(Class)operationClass;
+
+/**
+ Unregisters the specified subclass of `AFHTTPRequestOperation`.
+ 
+ @param The class conforming to the `AFHTTPClientOperation` protocol to unregister
+ 
+ @discussion After this method is invoked, `operationClass` is no longer consulted when `requestWithMethod:path:parameters` is invoked.
+ */
+- (void)unregisterHTTPOperationClass:(Class)operationClass;
 
 ///----------------------------------
 /// @name Managing HTTP Header Values
@@ -142,13 +230,15 @@
 ///-------------------------------
 
 /**
- Creates an `NSMutableURLRequest` object with the specified HTTP method and path. If the HTTP method is `GET`, the parameters will be used to construct a url-encoded query string that is appended to the request's URL. If `POST`, `PUT`, or `DELETE`, the parameters will be encoded into a `application/x-www-form-urlencoded` HTTP body.
+ Creates an `NSMutableURLRequest` object with the specified HTTP method and path. By default, this method scans through the registered operation classes (in reverse order of when they were specified), until finding one that can handle the specified request.
+ 
+ If the HTTP method is `GET`, the parameters will be used to construct a url-encoded query string that is appended to the request's URL. Otherwise, the parameters will be encoded according to the value of the `parameterEncoding` property, and set as the request body.
  
  @param method The HTTP method for the request, such as `GET`, `POST`, `PUT`, or `DELETE`.
  @param path The path to be appended to the HTTP client's base URL and used as the request URL.
  @param parameters The parameters to be either set as a query string for `GET` requests, or the request HTTP body.
- 
- @return An `NSMutableURLRequest` object
+  
+ @return An `NSMutableURLRequest` object 
  */
 - (NSMutableURLRequest *)requestWithMethod:(NSString *)method 
                                       path:(NSString *)path 
@@ -161,8 +251,8 @@
  @param path The path to be appended to the HTTP client's base URL and used as the request URL.
  @param parameters The parameters to be encoded and set in the request HTTP body.
  @param block A block that takes a single argument and appends data to the HTTP body. The block argument is an object adopting the `AFMultipartFormData` protocol. This can be used to upload files, encode HTTP body as JSON or XML, or specify multiple values for the same parameter, as one might for array values.
- 
- @see AFMultipartFormData
+  
+ @warning An exception will be raised if the specified method is not `POST`, `PUT` or `DELETE`.
  
  @return An `NSMutableURLRequest` object
  */
@@ -171,25 +261,33 @@
                                              parameters:(NSDictionary *)parameters
                               constructingBodyWithBlock:(void (^)(id <AFMultipartFormData> formData))block;
 
-
-///--------------------------------
-/// @name Enqueuing HTTP Operations
-///--------------------------------
+///-------------------------------
+/// @name Creating HTTP Operations
+///-------------------------------
 
 /**
- Creates and enqueues an `AFHTTPRequestOperation` to the HTTP client's operation queue.
+ Creates an `AFHTTPRequestOperation`
+ 
+ In order to determine what kind of operation is created, each registered subclass conforming to the `AFHTTPClient` protocol is consulted in turn to see if it can handle the specific request. The first class to return `YES` when sent a `canProcessRequest:` message is used to generate an operation using `HTTPRequestOperationWithRequest:success:failure:`.
  
  @param request The request object to be loaded asynchronously during execution of the operation.
- @param success A block object to be executed when the request operation finishes successfully, with a status code in the 2xx range, and with an acceptable content type (e.g. `application/json`). This block has no return value and takes a single argument, which is an object created from the response data of request.
- @param failure A block object to be executed when the request operation finishes unsuccessfully, or that finishes successfully, but encountered an error while parsing the resonse data as JSON. This block has no return value and takes a single argument, which is the `NSError` object describing the network or parsing error that occurred.
+ @param success A block object to be executed when the request operation finishes successfully. This block has no return value and takes two arguments: the created request operation and the object created from the response data of request.
+ @param failure A block object to be executed when the request operation finishes unsuccessfully, or that finishes successfully, but encountered an error while parsing the resonse data. This block has no return value and takes two arguments:, the created request operation and the `NSError` object describing the network or parsing error that occurred.
  */
-- (void)enqueueHTTPOperationWithRequest:(NSURLRequest *)request 
-                                success:(void (^)(id object))success 
-                                failure:(void (^)(NSHTTPURLResponse *response, NSError *error))failure;
+- (AFHTTPRequestOperation *)HTTPRequestOperationWithRequest:(NSURLRequest *)request 
+                                                    success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+                                                    failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
 
-///---------------------------------
-/// @name Cancelling HTTP Operations
-///---------------------------------
+///----------------------------------------
+/// @name Managing Enqueued HTTP Operations
+///----------------------------------------
+
+/**
+ Enqueues an `AFHTTPRequestOperation` to the HTTP client's operation queue.
+ 
+ @param operation The HTTP request operation to be enqueued.
+ */
+- (void)enqueueHTTPRequestOperation:(AFHTTPRequestOperation *)operation;
 
 /**
  Cancels all operations in the HTTP client's operation queue that match the specified HTTP method and URL.
@@ -208,66 +306,68 @@
  
  @param path The path to be appended to the HTTP client's base URL and used as the request URL.
  @param parameters The parameters to be encoded and appended as the query string for the request URL.
- @param success A block object to be executed when the request operation finishes successfully, with a status code in the 2xx range, and with an acceptable content type (e.g. `application/json`). This block has no return value and takes a single argument, which is the response object created from the response data of request.
- @param failure A block object to be executed when the request operation finishes unsuccessfully, or that finishes successfully, but encountered an error while parsing the resonse data as JSON. This block has no return value and takes a single argument, which is the `NSError` object describing the network or parsing error that occurred.
+ @param success A block object to be executed when the request operation finishes successfully. This block has no return value and takes two arguments: the created request operation and the object created from the response data of request.
+ @param failure A block object to be executed when the request operation finishes unsuccessfully, or that finishes successfully, but encountered an error while parsing the resonse data. This block has no return value and takes two arguments:, the created request operation and the `NSError` object describing the network or parsing error that occurred.
  
- @see enqueueHTTPOperationWithRequest:success:failure
+ @see HTTPRequestOperationWithRequest:success:failure
  */
 - (void)getPath:(NSString *)path
      parameters:(NSDictionary *)parameters
-        success:(void (^)(id object))success 
-        failure:(void (^)(NSHTTPURLResponse *response, NSError *error))failure;
+        success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+        failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
 
 /**
  Creates an `AFHTTPRequestOperation` with a `POST` request, and enqueues it to the HTTP client's operation queue.
  
  @param path The path to be appended to the HTTP client's base URL and used as the request URL.
  @param parameters The parameters to be encoded and set in the request HTTP body.
- @param success A block object to be executed when the request operation finishes successfully, with a status code in the 2xx range, and with an acceptable content type (e.g. `application/json`). This block has no return value and takes a single argument, which is the response object created from the response data of request.
- @param failure A block object to be executed when the request operation finishes unsuccessfully, or that finishes successfully, but encountered an error while parsing the resonse data as JSON. This block has no return value and takes a single argument, which is the `NSError` object describing the network or parsing error that occurred.
+ @param success A block object to be executed when the request operation finishes successfully. This block has no return value and takes two arguments: the created request operation and the object created from the response data of request.
+ @param failure A block object to be executed when the request operation finishes unsuccessfully, or that finishes successfully, but encountered an error while parsing the resonse data. This block has no return value and takes two arguments:, the created request operation and the `NSError` object describing the network or parsing error that occurred.
  
- @see enqueueHTTPOperationWithRequest:success:failure
+ @see HTTPRequestOperationWithRequest:success:failure
  */
 - (void)postPath:(NSString *)path 
       parameters:(NSDictionary *)parameters 
-         success:(void (^)(id object))success 
-         failure:(void (^)(NSHTTPURLResponse *response, NSError *error))failure;
+         success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+         failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
 
 /**
  Creates an `AFHTTPRequestOperation` with a `PUT` request, and enqueues it to the HTTP client's operation queue.
  
  @param path The path to be appended to the HTTP client's base URL and used as the request URL.
  @param parameters The parameters to be encoded and set in the request HTTP body.
- @param success A block object to be executed when the request operation finishes successfully, with a status code in the 2xx range, and with an acceptable content type (e.g. `application/json`). This block has no return value and takes a single argument, which is the response object created from the response data of request.
- @param failure A block object to be executed when the request operation finishes unsuccessfully, or that finishes successfully, but encountered an error while parsing the resonse data as JSON. This block has no return value and takes a single argument, which is the `NSError` object describing the network or parsing error that occurred.
+ @param success A block object to be executed when the request operation finishes successfully. This block has no return value and takes two arguments: the created request operation and the object created from the response data of request.
+ @param failure A block object to be executed when the request operation finishes unsuccessfully, or that finishes successfully, but encountered an error while parsing the resonse data. This block has no return value and takes two arguments:, the created request operation and the `NSError` object describing the network or parsing error that occurred.
  
- @see enqueueHTTPOperationWithRequest:success:failure
+ @see HTTPRequestOperationWithRequest:success:failure
  */
 - (void)putPath:(NSString *)path 
      parameters:(NSDictionary *)parameters 
-        success:(void (^)(id object))success 
-        failure:(void (^)(NSHTTPURLResponse *response, NSError *error))failure;
+        success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+        failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
 
 /**
  Creates an `AFHTTPRequestOperation` with a `DELETE` request, and enqueues it to the HTTP client's operation queue.
  
  @param path The path to be appended to the HTTP client's base URL and used as the request URL.
  @param parameters The parameters to be encoded and set in the request HTTP body.
- @param success A block object to be executed when the request operation finishes successfully, with a status code in the 2xx range, and with an acceptable content type (e.g. `application/json`). This block has no return value and takes a single argument, which is the response object created from the response data of request.
- @param failure A block object to be executed when the request operation finishes unsuccessfully, or that finishes successfully, but encountered an error while parsing the resonse data as JSON. This block has no return value and takes a single argument, which is the `NSError` object describing the network or parsing error that occurred.
+ @param success A block object to be executed when the request operation finishes successfully. This block has no return value and takes two arguments: the created request operation and the object created from the response data of request.
+ @param failure A block object to be executed when the request operation finishes unsuccessfully, or that finishes successfully, but encountered an error while parsing the resonse data. This block has no return value and takes two arguments:, the created request operation and the `NSError` object describing the network or parsing error that occurred.
  
- @see enqueueHTTPOperationWithRequest:success:failure
+ @see HTTPRequestOperationWithRequest:success:failure
  */
 - (void)deletePath:(NSString *)path 
         parameters:(NSDictionary *)parameters 
-           success:(void (^)(id object))success 
-           failure:(void (^)(NSHTTPURLResponse *response, NSError *error))failure;
+           success:(void (^)(AFHTTPRequestOperation *operation, id responseObject))success
+           failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
 @end
 
 #pragma mark -
 
 /**
  The `AFMultipartFormData` protocol defines the methods supported by the parameter in the block argument of `multipartFormRequestWithMethod:path:parameters:constructingBodyWithBlock:`.
+ 
+ @see `AFHTTPClient -multipartFormRequestWithMethod:path:parameters:constructingBodyWithBlock:`
  */
 @protocol AFMultipartFormData
 
@@ -288,25 +388,27 @@
 - (void)appendPartWithFormData:(NSData *)data name:(NSString *)name;
 
 /**
- Appends the HTTP header `Content-Disposition: file; filename=#{generated filename}; name=#{name}"` and `Content-Type: #{mimeType}`, followed by the encoded file data and the multipart form boundary.
+ Appends the HTTP header `Content-Disposition: file; filename=#{filename}; name=#{name}"` and `Content-Type: #{mimeType}`, followed by the encoded file data and the multipart form boundary.
  
  @param data The data to be encoded and appended to the form data.
- @param mimeType The MIME type of the specified data. (For example, the MIME type for a JPEG image is image/jpeg.) For a list of valid MIME types, see http://www.iana.org/assignments/media-types/. This parameter must not be `nil`.
  @param name The name to be associated with the specified data. This parameter must not be `nil`.
- 
- @discussion The filename associated with this data in the form will be automatically generated using the parameter name specified and a unique timestamp-based hash.  
+ @param mimeType The MIME type of the specified data. (For example, the MIME type for a JPEG image is image/jpeg.) For a list of valid MIME types, see http://www.iana.org/assignments/media-types/. This parameter must not be `nil`.
+ @param filename The filename to be associated with the specified data. This parameter must not be `nil`.
  */
-- (void)appendPartWithFileData:(NSData *)data mimeType:(NSString *)mimeType name:(NSString *)name;
+- (void)appendPartWithFileData:(NSData *)data name:(NSString *)name fileName:(NSString *)fileName mimeType:(NSString *)mimeType;
 
 /**
- Appends the HTTP header `Content-Disposition: file; filename=#{filename}"` and `Content-Type: #{mimeType}`, followed by the encoded file data and the multipart form boundary.
+ Appends the HTTP header `Content-Disposition: file; filename=#{generated filename}; name=#{name}"` and `Content-Type: #{generated mimeType}`, followed by the encoded file data and the multipart form boundary.
  
- @param fileURL The URL for the local file to have its contents appended to the form data. This parameter must not be `nil`.
- @param mimeType The MIME type of the specified data. (For example, the MIME type for a JPEG image is image/jpeg.) For a list of valid MIME types, see http://www.iana.org/assignments/media-types/. This parameter must not be `nil`.
- @param fileName The filename to be associated with the file contents. This parameter must not be `nil`.
+ @param fileURL The URL corresponding to the file whose content will be appended to the form.
+ @param name The name to be associated with the specified data. This parameter must not be `nil`.
  @param error If an error occurs, upon return contains an `NSError` object that describes the problem.
+ 
+ @return `YES` if the file data was successfully appended, otherwise `NO`.
+ 
+ @discussion The filename and MIME type for this data in the form will be automatically generated, using `NSURLResponse` `-suggestedFilename` and `-MIMEType`, respectively.
  */
-- (void)appendPartWithFile:(NSURL *)fileURL mimeType:(NSString *)mimeType fileName:(NSString *)fileName error:(NSError **)error;
+- (BOOL)appendPartWithFileURL:(NSURL *)fileURL name:(NSString *)name error:(NSError **)error;
 
 /**
  Appends encoded data to the form data.
@@ -321,4 +423,6 @@
  @param string The string to be encoded and appended to the form data.
  */
 - (void)appendString:(NSString *)string;
+
 @end
+
