@@ -198,7 +198,7 @@
                                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
                                             <connections>
-                                                <action selector="recordAudio:" destination="DWI-Ej-wkb" eventType="touchUpInside" id="FYt-08-q5I"/>
+                                                <action selector="showRecordAudioTools:" destination="DWI-Ej-wkb" eventType="touchUpInside" id="g8Q-E6-Onw"/>
                                             </connections>
                                         </button>
                                     </subviews>
@@ -208,12 +208,29 @@
                                     <constraint firstItem="TzB-lZ-3Yp" firstAttribute="centerY" secondItem="RHL-sn-TCe" secondAttribute="centerY" type="default" id="5G3-oy-27t"/>
                                     <constraint firstItem="TzB-lZ-3Yp" firstAttribute="centerX" secondItem="RHL-sn-TCe" secondAttribute="centerX" type="default" id="ryi-wd-ewG"/>
                                 </constraints>
-                                <connections>
-                                    <outlet property="recordAudioButton" destination="TzB-lZ-3Yp" id="cmu-uz-O8E"/>
-                                </connections>
+                            </tableViewCell>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" indentationWidth="10" id="eqe-Hc-TBk">
+                                <rect key="frame" x="0.0" y="466" width="320" height="85"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="84"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <progressView opaque="NO" contentMode="scaleToFill" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="bmg-Op-BWM">
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="150" id="3ex-hj-8ce"/>
+                                            </constraints>
+                                        </progressView>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                                <constraints>
+                                    <constraint firstItem="bmg-Op-BWM" firstAttribute="top" secondItem="eqe-Hc-TBk" secondAttribute="top" constant="29" id="1HN-RP-wSu"/>
+                                    <constraint firstItem="bmg-Op-BWM" firstAttribute="centerX" secondItem="eqe-Hc-TBk" secondAttribute="centerX" type="default" id="ni0-JZ-Vgs"/>
+                                </constraints>
                             </tableViewCell>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MenuOptionsCell" rowHeight="85" id="1FM-CZ-nd1" customClass="MenuOptionsCell">
-                                <rect key="frame" x="0.0" y="466" width="320" height="85"/>
+                                <rect key="frame" x="0.0" y="551" width="320" height="85"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="84"/>
@@ -388,8 +405,7 @@
         <class className="AddItemViewController" superclassName="UITableViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/AddItemViewController.h"/>
             <relationships>
-                <relationship kind="action" name="recordAudio:"/>
-                <relationship kind="outlet" name="recordAudioButton" candidateClass="UIButton"/>
+                <relationship kind="action" name="showRecordAudioTools:"/>
             </relationships>
         </class>
         <class className="CommentCell" superclassName="UITableViewCell">
