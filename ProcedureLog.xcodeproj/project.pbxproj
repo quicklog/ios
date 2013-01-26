@@ -63,6 +63,9 @@
 		FD4104B616B40149001E92C4 /* StatsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FD4104B516B40149001E92C4 /* StatsViewController.m */; };
 		FD4104B916B40162001E92C4 /* TagsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FD4104B816B40162001E92C4 /* TagsViewController.m */; };
 		FD4104BD16B4017A001E92C4 /* AddItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FD4104BC16B4017A001E92C4 /* AddItemViewController.m */; };
+		FD4104C016B40276001E92C4 /* ProcedureCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FD4104BF16B40276001E92C4 /* ProcedureCell.m */; };
+		FD4104C316B402CC001E92C4 /* RatingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FD4104C216B402CC001E92C4 /* RatingCell.m */; };
+		FD4104C616B402DC001E92C4 /* CommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FD4104C516B402DC001E92C4 /* CommentCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -158,6 +161,12 @@
 		FD4104B816B40162001E92C4 /* TagsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TagsViewController.m; sourceTree = "<group>"; };
 		FD4104BB16B4017A001E92C4 /* AddItemViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddItemViewController.h; sourceTree = "<group>"; };
 		FD4104BC16B4017A001E92C4 /* AddItemViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddItemViewController.m; sourceTree = "<group>"; };
+		FD4104BE16B40276001E92C4 /* ProcedureCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProcedureCell.h; sourceTree = "<group>"; };
+		FD4104BF16B40276001E92C4 /* ProcedureCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProcedureCell.m; sourceTree = "<group>"; };
+		FD4104C116B402CC001E92C4 /* RatingCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RatingCell.h; sourceTree = "<group>"; };
+		FD4104C216B402CC001E92C4 /* RatingCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RatingCell.m; sourceTree = "<group>"; };
+		FD4104C416B402DC001E92C4 /* CommentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentCell.h; sourceTree = "<group>"; };
+		FD4104C516B402DC001E92C4 /* CommentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -428,6 +437,12 @@
 			children = (
 				FD4104BB16B4017A001E92C4 /* AddItemViewController.h */,
 				FD4104BC16B4017A001E92C4 /* AddItemViewController.m */,
+				FD4104BE16B40276001E92C4 /* ProcedureCell.h */,
+				FD4104BF16B40276001E92C4 /* ProcedureCell.m */,
+				FD4104C116B402CC001E92C4 /* RatingCell.h */,
+				FD4104C216B402CC001E92C4 /* RatingCell.m */,
+				FD4104C416B402DC001E92C4 /* CommentCell.h */,
+				FD4104C516B402DC001E92C4 /* CommentCell.m */,
 			);
 			name = AddItemViewController;
 			sourceTree = "<group>";
@@ -538,6 +553,9 @@
 				FD4104B616B40149001E92C4 /* StatsViewController.m in Sources */,
 				FD4104B916B40162001E92C4 /* TagsViewController.m in Sources */,
 				FD4104BD16B4017A001E92C4 /* AddItemViewController.m in Sources */,
+				FD4104C016B40276001E92C4 /* ProcedureCell.m in Sources */,
+				FD4104C316B402CC001E92C4 /* RatingCell.m in Sources */,
+				FD4104C616B402DC001E92C4 /* CommentCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
