@@ -7,6 +7,10 @@
 //
 
 #import "AddItemViewController.h"
+#import "DoRecordAudioCell.h"
+#import "Item.h"
+#import "Recording.h"
+#import "CommentCell.h"
 
 @interface AddItemViewController ()
 
@@ -43,6 +47,12 @@
 
 - (void)viewDidLoad
 {
+    self.navigationItem.hidesBackButton = NO;
+    
+    UIBarButtonItem * saveButton = [[UIBarButtonItem alloc]initWithTitle:@"Save" style:UIBarButtonItemStylePlain target:self action:@selector(saveProceedure)];
+    
+    saveButton.title = @"Save";
+    self.navigationItem.rightBarButtonItem = saveButton;
     [super viewDidLoad];
 }
 
@@ -61,7 +71,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 5;
+    return 4;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -92,8 +102,11 @@
         {
             NSLog(@"recordy");
             static NSString *identifier = @"DoRecordAudioCell";
-            cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+            DoRecordAudioCell * cell = (DoRecordAudioCell *)[tableView dequeueReusableCellWithIdentifier:identifier];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            [cell.recordingProgress setProgress:0.0];
+            cell.recordingProgressLabel.text = [NSString stringWithFormat:@"%i", 0];
+            return cell;
         }
         else
         {
@@ -134,31 +147,30 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     */
+    CommentCell *cell = (CommentCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:2 inSection:0]];
+
+    [cell.commentText resignFirstResponder];
 }
 
 //Audio stuff
 
 - (IBAction)cancelRecording:(id)sender
-{    
+{
+    [self.updateTimer invalidate];
+    self.updateTimer = nil;
+    
     self.readyToRecord = NO;
-    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:3 inSection:0]];
     
     [self.tableView beginUpdates];
-    cell.backgroundColor = [UIColor greenColor];
-    
+
     [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:3 inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
     [self.tableView endUpdates];
 }
 
 -(IBAction)startOrStopRecording:(id)sender
-{    
+{
+    NSLog(@"errrr %i", self.numberOfSecondsRecordedFor);
+    
     if(self.numberOfSecondsRecordedFor > 0)
     {
         [self stopRecording];
@@ -172,7 +184,7 @@
 - (AVAudioRecorder *)recorder
 {
     if (!_recorder) {
-        NSString *soundFilePath = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:@"testRecording"];
+        NSString *soundFilePath = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:@"tempRecording.aac"];
         
         NSURL *recordURL = [NSURL fileURLWithPath:soundFilePath];
         NSLog(@"Will record to: %@", recordURL);
@@ -205,9 +217,20 @@
 
 -(void)updatetimeRecorded
 {
+    DoRecordAudioCell *cell = (DoRecordAudioCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:3 inSection:0]];
+    [cell.recordingProgress setProgress:(1 - ((float)self.numberOfSecondsRecordedFor/20))];
+    cell.recordingProgressLabel.text = [NSString stringWithFormat:@"%i", self.numberOfSecondsRecordedFor];
+    
+    NSLog(@"progress: %f", 1 - ((float)self.numberOfSecondsRecordedFor/20));
+    
+    if(self.numberOfSecondsRecordedFor >= MAX_RECORDING_TIME)
+    {
+        [self stopRecording];
+    }
+    
     self.numberOfSecondsRecordedFor++;
-    NSLog(@"%f", self.numberOfSecondsRecordedFor);
 }
+
 
 -(void)startRecording
 {
@@ -215,7 +238,7 @@
     self.recorder = nil;
     [self.recorder prepareToRecord];
     [self.recorder record];
-    self.updateTimer = [NSTimer scheduledTimerWithTimeInterval:1/60.0f target:self selector:@selector(updatetimeRecorded) userInfo:nil repeats:YES];
+    self.updateTimer = [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(updatetimeRecorded) userInfo:nil repeats:YES];
 }
 
 -(void)stopRecording
@@ -225,9 +248,9 @@
     [self.updateTimer invalidate];
     self.updateTimer = nil;
     
-    self.numberOfSecondsRecordedFor = 0;
     [self.recorder stop];
-    
+    self.numberOfSecondsRecordedFor = 0;
+
     self.readyToRecord = NO;
     UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:3 inSection:0]];
     
@@ -238,5 +261,23 @@
     [self.tableView endUpdates];
 }
 
+-(void)saveProceedure
+{
+    NSManagedObjectContext *localContext    = [NSManagedObjectContext MR_contextForCurrentThread];
+    
+    Item * item = [Item MR_createInContext:localContext];
+    item.rating = [NSNumber numberWithFloat:3.0];
+    item.timestamp = [NSDate date];
+    
+    CFUUIDRef newUniqueId = CFUUIDCreate(kCFAllocatorDefault);
+    CFStringRef newUniqueIdString = CFUUIDCreateString(kCFAllocatorDefault, newUniqueId);
+    
+    NSLog(@"%@", newUniqueIdString);
+    item.uid = (__bridge NSString *)newUniqueIdString;
+    item.comment = @"asdfasdf";
+
+    [localContext MR_saveToPersistentStoreAndWait];
+    NSLog(@"saved proceedure");
+}
 
 @end

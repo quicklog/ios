@@ -16,11 +16,12 @@
 
 @property (nonatomic, retain) AVAudioRecorder *recorder;
 @property (nonatomic, retain) AVAudioSession *audioSession;
-@property (nonatomic, readwrite) float numberOfSecondsRecordedFor;
+@property (nonatomic, readwrite) int numberOfSecondsRecordedFor;
 @property (nonatomic, retain) NSTimer *updateTimer;
 
 - (IBAction)startOrStopRecording:(id)sender;
 - (IBAction)cancelRecording:(id)sender;
 - (IBAction)showRecordAudioTools:(id)sender;
+-(void)saveProceedure;
 
 @end

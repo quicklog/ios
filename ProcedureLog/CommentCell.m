@@ -25,4 +25,20 @@
     // Configure the view for the selected state
 }
 
+- (BOOL) textViewShouldBeginEditing:(UITextView *)textView
+{
+    self.commentText.text = @"";
+    self.commentText.textColor = [UIColor blackColor];
+    return YES;
+}
+
+-(void) textViewDidChange:(UITextView *)textView
+{
+    if(self.commentText.text.length == 0){
+        self.commentText.textColor = [UIColor lightGrayColor];
+        self.commentText.text = @"Comment";
+        [self.commentText resignFirstResponder];
+    }
+}
+
 @end

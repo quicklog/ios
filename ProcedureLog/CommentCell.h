@@ -10,4 +10,6 @@
 
 @interface CommentCell : UITableViewCell
 
+@property (nonatomic, retain) IBOutlet UITextView * commentText;
+
 @end
