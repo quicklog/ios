@@ -80,6 +80,9 @@
 		FD47C77016B431870027AEDF /* star_full@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FD47C76C16B431870027AEDF /* star_full@2x.png */; };
 		FD47C77416B4319F0027AEDF /* UIImageView+Reflected.m in Sources */ = {isa = PBXBuildFile; fileRef = FD47C77316B4319F0027AEDF /* UIImageView+Reflected.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		FD47C77716B431A70027AEDF /* RSTapRateView.m in Sources */ = {isa = PBXBuildFile; fileRef = FD47C77616B431A70027AEDF /* RSTapRateView.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		FD5C1A8216B4374E002DDB98 /* Item+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = FD5C1A8116B4374E002DDB98 /* Item+Helper.m */; };
+		FD5C1A8516B43760002DDB98 /* Recording+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = FD5C1A8416B43760002DDB98 /* Recording+Helper.m */; };
+		FD5C1A8816B43770002DDB98 /* Tag+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = FD5C1A8716B43770002DDB98 /* Tag+Helper.m */; };
 		FDE3EB1A16B4344C001B4FDD /* AFHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = FDE3EB0516B4344C001B4FDD /* AFHTTPClient.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		FDE3EB1B16B4344C001B4FDD /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = FDE3EB0716B4344C001B4FDD /* AFHTTPRequestOperation.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		FDE3EB1C16B4344C001B4FDD /* AFImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = FDE3EB0916B4344C001B4FDD /* AFImageCache.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -213,6 +216,12 @@
 		FD47C77316B4319F0027AEDF /* UIImageView+Reflected.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+Reflected.m"; sourceTree = "<group>"; };
 		FD47C77516B431A70027AEDF /* RSTapRateView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RSTapRateView.h; sourceTree = "<group>"; };
 		FD47C77616B431A70027AEDF /* RSTapRateView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RSTapRateView.m; sourceTree = "<group>"; };
+		FD5C1A8016B4374E002DDB98 /* Item+Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Item+Helper.h"; sourceTree = "<group>"; };
+		FD5C1A8116B4374E002DDB98 /* Item+Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Item+Helper.m"; sourceTree = "<group>"; };
+		FD5C1A8316B43760002DDB98 /* Recording+Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Recording+Helper.h"; sourceTree = "<group>"; };
+		FD5C1A8416B43760002DDB98 /* Recording+Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Recording+Helper.m"; sourceTree = "<group>"; };
+		FD5C1A8616B43770002DDB98 /* Tag+Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Tag+Helper.h"; sourceTree = "<group>"; };
+		FD5C1A8716B43770002DDB98 /* Tag+Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Tag+Helper.m"; sourceTree = "<group>"; };
 		FDE3EB0416B4344C001B4FDD /* AFHTTPClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPClient.h; sourceTree = "<group>"; };
 		FDE3EB0516B4344C001B4FDD /* AFHTTPClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFHTTPClient.m; sourceTree = "<group>"; };
 		FDE3EB0616B4344C001B4FDD /* AFHTTPRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperation.h; sourceTree = "<group>"; };
@@ -476,10 +485,16 @@
 			children = (
 				C7253CE316B43534009B5CBE /* Item.h */,
 				C7253CE416B43535009B5CBE /* Item.m */,
+				FD5C1A8016B4374E002DDB98 /* Item+Helper.h */,
+				FD5C1A8116B4374E002DDB98 /* Item+Helper.m */,
 				C7253CE016B43534009B5CBE /* Recording.h */,
 				C7253CE116B43534009B5CBE /* Recording.m */,
+				FD5C1A8316B43760002DDB98 /* Recording+Helper.h */,
+				FD5C1A8416B43760002DDB98 /* Recording+Helper.m */,
 				C7253CDC16B43532009B5CBE /* Tag.h */,
 				C7253CDD16B43532009B5CBE /* Tag.m */,
+				FD5C1A8616B43770002DDB98 /* Tag+Helper.h */,
+				FD5C1A8716B43770002DDB98 /* Tag+Helper.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -708,6 +723,9 @@
 				C7253CDE16B43532009B5CBE /* Tag.m in Sources */,
 				C7253CE216B43534009B5CBE /* Recording.m in Sources */,
 				C7253CE516B43535009B5CBE /* Item.m in Sources */,
+				FD5C1A8216B4374E002DDB98 /* Item+Helper.m in Sources */,
+				FD5C1A8516B43760002DDB98 /* Recording+Helper.m in Sources */,
+				FD5C1A8816B43770002DDB98 /* Tag+Helper.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
