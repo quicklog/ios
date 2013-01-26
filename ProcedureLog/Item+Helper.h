@@ -8,6 +8,10 @@
 
 #import "Item.h"
 
+#import "AFNetworking.h"
+
 @interface Item (Helper)
+
+-(void)saveToCloud;
 
 @end

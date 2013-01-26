@@ -10,7 +10,7 @@
 
 
 //API CONFIG
-#define API_ROOT @"https://quicklog.herokuapp.com"
+#define API_ROOT @"https://quicklog.herokuapp.com/api/1/"
 
 
 

@@ -13,7 +13,7 @@
 @interface Item : NSManagedObject
 
 @property (nonatomic, retain) NSString * uid;
-@property (nonatomic, retain) NSDate * comment;
+@property (nonatomic, retain) NSString * comment;
 @property (nonatomic, retain) NSNumber * rating;
 @property (nonatomic, retain) NSDate * timestamp;
 

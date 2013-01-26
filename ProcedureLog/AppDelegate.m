@@ -7,6 +7,8 @@
 //
 
 #import "AppDelegate.h"
+#import "Item.h"
+#import "Item+Helper.h"
 
 @implementation AppDelegate
 
@@ -15,6 +17,7 @@
     // Override point for customization after application launch.
     
     [MagicalRecord setupCoreDataStackWithAutoMigratingSqliteStoreNamed:@"ProcedureLog"];
+    
     return YES;
 }
 
