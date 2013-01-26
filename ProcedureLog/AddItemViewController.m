@@ -19,6 +19,8 @@
 {
     if(!_recordAudioViewController)
     {
+        self.readyToRecord = NO;
+
         _recordAudioViewController = [[RecordAudioViewController alloc]initWithNibName:@"RecordAudioViewController" bundle:nil];
     }
     
@@ -35,9 +37,18 @@
     return self;
 }
 
--(IBAction)recordAudio:(id)sender
+-(IBAction)showRecordAudioTools:(id)sender
 {
-    [self.view addSubview:self.recordAudioViewController.view];
+    self.readyToRecord = YES;
+    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:3 inSection:0]];
+    
+    [self.tableView beginUpdates];
+    cell.backgroundColor = [UIColor greenColor];
+    
+    [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:3 inSection:0]] withRowAnimation:UITableViewRowAnimationTop];
+    [self.tableView endUpdates];
+    
+    //[self.view addSubview:self.recordAudioViewController.view];
 }
 
 - (void)viewDidLoad
@@ -87,9 +98,18 @@
     }
     else if(indexPath.row == 3)
     {
-        static NSString *identifier = @"RecordAudioCell";
-        cell = [tableView dequeueReusableCellWithIdentifier:identifier];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        if(self.readyToRecord)
+        {
+            static NSString *identifier = @"DoRecordAudioCell";
+            cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        }
+        else
+        {
+            static NSString *identifier = @"RecordAudioCell";
+            cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        }
     }
     else if(indexPath.row == 4)
     {
@@ -109,6 +129,11 @@
     if(indexPath.row == 2)
     {
         height = 214;
+    }
+    
+    if(indexPath.row == 3 && self.readyToRecord)
+    {
+        height = 160;
     }
     
     return height;

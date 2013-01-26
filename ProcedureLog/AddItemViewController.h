@@ -13,7 +13,8 @@
 
 @property (nonatomic, retain) RecordAudioViewController * recordAudioViewController;
 @property (nonatomic, retain) UITableViewCell * recordAudioCell;
+@property (nonatomic, readwrite) BOOL readyToRecord;
 
--(IBAction)recordAudio:(id)sender;
+-(IBAction)showRecordAudioTools:(id)sender;
 
 @end
