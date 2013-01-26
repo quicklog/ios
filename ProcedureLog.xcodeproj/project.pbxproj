@@ -51,6 +51,14 @@
 		FD41048816B3FB5C001E92C4 /* MagicalRecord+Setup.m in Sources */ = {isa = PBXBuildFile; fileRef = FD41046A16B3FB5C001E92C4 /* MagicalRecord+Setup.m */; };
 		FD41048916B3FB5C001E92C4 /* MagicalRecord+ShorthandSupport.m in Sources */ = {isa = PBXBuildFile; fileRef = FD41046C16B3FB5C001E92C4 /* MagicalRecord+ShorthandSupport.m */; };
 		FD41048A16B3FB5C001E92C4 /* MagicalRecord.m in Sources */ = {isa = PBXBuildFile; fileRef = FD41046E16B3FB5C001E92C4 /* MagicalRecord.m */; };
+		FD41049816B3FCBF001E92C4 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD41049016B3FCBF001E92C4 /* Accounts.framework */; };
+		FD41049916B3FCBF001E92C4 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD41049116B3FCBF001E92C4 /* AddressBook.framework */; };
+		FD41049A16B3FCBF001E92C4 /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD41049216B3FCBF001E92C4 /* AddressBookUI.framework */; };
+		FD41049B16B3FCBF001E92C4 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD41049316B3FCBF001E92C4 /* CoreData.framework */; };
+		FD41049C16B3FCBF001E92C4 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD41049416B3FCBF001E92C4 /* CoreLocation.framework */; };
+		FD41049D16B3FCBF001E92C4 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD41049516B3FCBF001E92C4 /* CoreTelephony.framework */; };
+		FD41049E16B3FCBF001E92C4 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD41049616B3FCBF001E92C4 /* QuartzCore.framework */; };
+		FD41049F16B3FCBF001E92C4 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD41049716B3FCBF001E92C4 /* SystemConfiguration.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -132,6 +140,14 @@
 		FD41046E16B3FB5C001E92C4 /* MagicalRecord.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MagicalRecord.m; sourceTree = "<group>"; };
 		FD41046F16B3FB5C001E92C4 /* MagicalRecordShorthand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MagicalRecordShorthand.h; sourceTree = "<group>"; };
 		FD41047016B3FB5C001E92C4 /* CoreData+MagicalRecord.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CoreData+MagicalRecord.h"; sourceTree = "<group>"; };
+		FD41049016B3FCBF001E92C4 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
+		FD41049116B3FCBF001E92C4 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
+		FD41049216B3FCBF001E92C4 /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
+		FD41049316B3FCBF001E92C4 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		FD41049416B3FCBF001E92C4 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		FD41049516B3FCBF001E92C4 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		FD41049616B3FCBF001E92C4 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		FD41049716B3FCBF001E92C4 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -139,6 +155,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FD41049816B3FCBF001E92C4 /* Accounts.framework in Frameworks */,
+				FD41049916B3FCBF001E92C4 /* AddressBook.framework in Frameworks */,
+				FD41049A16B3FCBF001E92C4 /* AddressBookUI.framework in Frameworks */,
+				FD41049B16B3FCBF001E92C4 /* CoreData.framework in Frameworks */,
+				FD41049C16B3FCBF001E92C4 /* CoreLocation.framework in Frameworks */,
+				FD41049D16B3FCBF001E92C4 /* CoreTelephony.framework in Frameworks */,
+				FD41049E16B3FCBF001E92C4 /* QuartzCore.framework in Frameworks */,
+				FD41049F16B3FCBF001E92C4 /* SystemConfiguration.framework in Frameworks */,
 				FD4103F716B3F19D001E92C4 /* UIKit.framework in Frameworks */,
 				FD4103F916B3F19D001E92C4 /* Foundation.framework in Frameworks */,
 				FD4103FB16B3F19D001E92C4 /* CoreGraphics.framework in Frameworks */,
@@ -168,6 +192,14 @@
 		FD4103F516B3F19D001E92C4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				FD41049016B3FCBF001E92C4 /* Accounts.framework */,
+				FD41049116B3FCBF001E92C4 /* AddressBook.framework */,
+				FD41049216B3FCBF001E92C4 /* AddressBookUI.framework */,
+				FD41049316B3FCBF001E92C4 /* CoreData.framework */,
+				FD41049416B3FCBF001E92C4 /* CoreLocation.framework */,
+				FD41049516B3FCBF001E92C4 /* CoreTelephony.framework */,
+				FD41049616B3FCBF001E92C4 /* QuartzCore.framework */,
+				FD41049716B3FCBF001E92C4 /* SystemConfiguration.framework */,
 				FD4103F616B3F19D001E92C4 /* UIKit.framework */,
 				FD4103F816B3F19D001E92C4 /* Foundation.framework */,
 				FD4103FA16B3F19D001E92C4 /* CoreGraphics.framework */,
