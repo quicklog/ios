@@ -67,6 +67,7 @@
 		FD4104C316B402CC001E92C4 /* RatingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FD4104C216B402CC001E92C4 /* RatingCell.m */; };
 		FD4104C616B402DC001E92C4 /* CommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FD4104C516B402DC001E92C4 /* CommentCell.m */; };
 		FD4104C916B403B7001E92C4 /* MenuOptionsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = FD4104C816B403B7001E92C4 /* MenuOptionsCell.m */; };
+		FD4104CC16B41FC1001E92C4 /* ProccedureLogDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = FD4104CA16B41FC1001E92C4 /* ProccedureLogDataModel.xcdatamodeld */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -170,6 +171,7 @@
 		FD4104C516B402DC001E92C4 /* CommentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentCell.m; sourceTree = "<group>"; };
 		FD4104C716B403B7001E92C4 /* MenuOptionsCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuOptionsCell.h; sourceTree = "<group>"; };
 		FD4104C816B403B7001E92C4 /* MenuOptionsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuOptionsCell.m; sourceTree = "<group>"; };
+		FD4104CB16B41FC1001E92C4 /* ProccedureLogDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ProccedureLogDataModel.xcdatamodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -268,6 +270,7 @@
 				FD41042616B3F494001E92C4 /* 10-medical@2x.png */,
 				FD41042D16B3F62A001E92C4 /* 16-line-chart.png */,
 				FD41042E16B3F62A001E92C4 /* 16-line-chart@2x.png */,
+				FD4104CA16B41FC1001E92C4 /* ProccedureLogDataModel.xcdatamodeld */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -562,6 +565,7 @@
 				FD4104C316B402CC001E92C4 /* RatingCell.m in Sources */,
 				FD4104C616B402DC001E92C4 /* CommentCell.m in Sources */,
 				FD4104C916B403B7001E92C4 /* MenuOptionsCell.m in Sources */,
+				FD4104CC16B41FC1001E92C4 /* ProccedureLogDataModel.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -681,6 +685,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		FD4104CA16B41FC1001E92C4 /* ProccedureLogDataModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				FD4104CB16B41FC1001E92C4 /* ProccedureLogDataModel.xcdatamodel */,
+			);
+			currentVersion = FD4104CB16B41FC1001E92C4 /* ProccedureLogDataModel.xcdatamodel */;
+			path = ProccedureLogDataModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = FD4103E916B3F19D001E92C4 /* Project object */;
 }

@@ -14,7 +14,7 @@
 {
     // Override point for customization after application launch.
     
-    [MagicalRecord setupCoreDataStackWithAutoMigratingSqliteStoreNamed:@"ProcedureLog1.0"];
+    [MagicalRecord setupCoreDataStackWithAutoMigratingSqliteStoreNamed:@"ProcedureLog"];
     return YES;
 }
 
