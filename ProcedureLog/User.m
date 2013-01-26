@@ -51,7 +51,7 @@ static User *sharedUser = nil;
 -(void)signInEmail:(NSString *)email andPassword:(NSString *)password
 {
     
-    NSString *email = [email stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSString *aemail = [email stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 	NSString *pass = [password stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     
 }
