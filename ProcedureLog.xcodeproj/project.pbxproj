@@ -10,6 +10,9 @@
 		C7253CBC16B410CB009B5CBE /* RecordAudioCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C7253CBB16B410CB009B5CBE /* RecordAudioCell.m */; };
 		C7253CCC16B42486009B5CBE /* DoRecordAudioCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C7253CCB16B42485009B5CBE /* DoRecordAudioCell.m */; };
 		C7253CD216B42FD3009B5CBE /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7253CD116B42FD3009B5CBE /* AVFoundation.framework */; };
+		C7253CDE16B43532009B5CBE /* Tag.m in Sources */ = {isa = PBXBuildFile; fileRef = C7253CDD16B43532009B5CBE /* Tag.m */; };
+		C7253CE216B43534009B5CBE /* Recording.m in Sources */ = {isa = PBXBuildFile; fileRef = C7253CE116B43534009B5CBE /* Recording.m */; };
+		C7253CE516B43535009B5CBE /* Item.m in Sources */ = {isa = PBXBuildFile; fileRef = C7253CE416B43535009B5CBE /* Item.m */; };
 		FD4103F716B3F19D001E92C4 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD4103F616B3F19D001E92C4 /* UIKit.framework */; };
 		FD4103F916B3F19D001E92C4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD4103F816B3F19D001E92C4 /* Foundation.framework */; };
 		FD4103FB16B3F19D001E92C4 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD4103FA16B3F19D001E92C4 /* CoreGraphics.framework */; };
@@ -95,6 +98,12 @@
 		C7253CCA16B42485009B5CBE /* DoRecordAudioCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DoRecordAudioCell.h; sourceTree = "<group>"; };
 		C7253CCB16B42485009B5CBE /* DoRecordAudioCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DoRecordAudioCell.m; sourceTree = "<group>"; };
 		C7253CD116B42FD3009B5CBE /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		C7253CDC16B43532009B5CBE /* Tag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tag.h; sourceTree = "<group>"; };
+		C7253CDD16B43532009B5CBE /* Tag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tag.m; sourceTree = "<group>"; };
+		C7253CE016B43534009B5CBE /* Recording.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Recording.h; sourceTree = "<group>"; };
+		C7253CE116B43534009B5CBE /* Recording.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Recording.m; sourceTree = "<group>"; };
+		C7253CE316B43534009B5CBE /* Item.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Item.h; sourceTree = "<group>"; };
+		C7253CE416B43535009B5CBE /* Item.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Item.m; sourceTree = "<group>"; };
 		FD4103F216B3F19D001E92C4 /* ProcedureLog.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ProcedureLog.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FD4103F616B3F19D001E92C4 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		FD4103F816B3F19D001E92C4 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -465,6 +474,12 @@
 		FD41048F16B3FB75001E92C4 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				C7253CE316B43534009B5CBE /* Item.h */,
+				C7253CE416B43535009B5CBE /* Item.m */,
+				C7253CE016B43534009B5CBE /* Recording.h */,
+				C7253CE116B43534009B5CBE /* Recording.m */,
+				C7253CDC16B43532009B5CBE /* Tag.h */,
+				C7253CDD16B43532009B5CBE /* Tag.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -690,6 +705,9 @@
 				FDE3EB2116B4344C001B4FDD /* AFURLConnectionOperation.m in Sources */,
 				FDE3EB2216B4344C001B4FDD /* AFXMLRequestOperation.m in Sources */,
 				FDE3EB2316B4344C001B4FDD /* UIImageView+AFNetworking.m in Sources */,
+				C7253CDE16B43532009B5CBE /* Tag.m in Sources */,
+				C7253CE216B43534009B5CBE /* Recording.m in Sources */,
+				C7253CE516B43535009B5CBE /* Item.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
