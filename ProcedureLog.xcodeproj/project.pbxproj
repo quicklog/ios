@@ -17,8 +17,6 @@
 		FD41040B16B3F19D001E92C4 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FD41040A16B3F19D001E92C4 /* Default@2x.png */; };
 		FD41040D16B3F19D001E92C4 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FD41040C16B3F19D001E92C4 /* Default-568h@2x.png */; };
 		FD41041016B3F19E001E92C4 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FD41040E16B3F19E001E92C4 /* MainStoryboard.storyboard */; };
-		FD41041316B3F19E001E92C4 /* FirstViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FD41041216B3F19E001E92C4 /* FirstViewController.m */; };
-		FD41041A16B3F19E001E92C4 /* SecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FD41041916B3F19E001E92C4 /* SecondViewController.m */; };
 		FD41042716B3F494001E92C4 /* 10-medical.png in Resources */ = {isa = PBXBuildFile; fileRef = FD41042516B3F494001E92C4 /* 10-medical.png */; };
 		FD41042816B3F494001E92C4 /* 10-medical@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FD41042616B3F494001E92C4 /* 10-medical@2x.png */; };
 		FD41042B16B3F592001E92C4 /* 14-tag.png in Resources */ = {isa = PBXBuildFile; fileRef = FD41042916B3F592001E92C4 /* 14-tag.png */; };
@@ -61,6 +59,10 @@
 		FD41049F16B3FCBF001E92C4 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD41049716B3FCBF001E92C4 /* SystemConfiguration.framework */; };
 		FD4104A216B3FEF7001E92C4 /* 09-chat-2.png in Resources */ = {isa = PBXBuildFile; fileRef = FD4104A016B3FEF7001E92C4 /* 09-chat-2.png */; };
 		FD4104A316B3FEF7001E92C4 /* 09-chat-2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FD4104A116B3FEF7001E92C4 /* 09-chat-2@2x.png */; };
+		FD4104AE16B400DF001E92C4 /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FD4104AD16B400DF001E92C4 /* SearchViewController.m */; };
+		FD4104B616B40149001E92C4 /* StatsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FD4104B516B40149001E92C4 /* StatsViewController.m */; };
+		FD4104B916B40162001E92C4 /* TagsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FD4104B816B40162001E92C4 /* TagsViewController.m */; };
+		FD4104BD16B4017A001E92C4 /* AddItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FD4104BC16B4017A001E92C4 /* AddItemViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -78,10 +80,6 @@
 		FD41040A16B3F19D001E92C4 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		FD41040C16B3F19D001E92C4 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		FD41040F16B3F19E001E92C4 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
-		FD41041116B3F19E001E92C4 /* FirstViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FirstViewController.h; sourceTree = "<group>"; };
-		FD41041216B3F19E001E92C4 /* FirstViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FirstViewController.m; sourceTree = "<group>"; };
-		FD41041816B3F19E001E92C4 /* SecondViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SecondViewController.h; sourceTree = "<group>"; };
-		FD41041916B3F19E001E92C4 /* SecondViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SecondViewController.m; sourceTree = "<group>"; };
 		FD41042516B3F494001E92C4 /* 10-medical.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "10-medical.png"; sourceTree = "<group>"; };
 		FD41042616B3F494001E92C4 /* 10-medical@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "10-medical@2x.png"; sourceTree = "<group>"; };
 		FD41042916B3F592001E92C4 /* 14-tag.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "14-tag.png"; sourceTree = "<group>"; };
@@ -152,6 +150,14 @@
 		FD41049716B3FCBF001E92C4 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		FD4104A016B3FEF7001E92C4 /* 09-chat-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "09-chat-2.png"; sourceTree = "<group>"; };
 		FD4104A116B3FEF7001E92C4 /* 09-chat-2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "09-chat-2@2x.png"; sourceTree = "<group>"; };
+		FD4104AC16B400DF001E92C4 /* SearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchViewController.h; sourceTree = "<group>"; };
+		FD4104AD16B400DF001E92C4 /* SearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchViewController.m; sourceTree = "<group>"; };
+		FD4104B416B40149001E92C4 /* StatsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StatsViewController.h; sourceTree = "<group>"; };
+		FD4104B516B40149001E92C4 /* StatsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatsViewController.m; sourceTree = "<group>"; };
+		FD4104B716B40162001E92C4 /* TagsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TagsViewController.h; sourceTree = "<group>"; };
+		FD4104B816B40162001E92C4 /* TagsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TagsViewController.m; sourceTree = "<group>"; };
+		FD4104BB16B4017A001E92C4 /* AddItemViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddItemViewController.h; sourceTree = "<group>"; };
+		FD4104BC16B4017A001E92C4 /* AddItemViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddItemViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -375,10 +381,10 @@
 		FD41048E16B3FB70001E92C4 /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				FD41041116B3F19E001E92C4 /* FirstViewController.h */,
-				FD41041216B3F19E001E92C4 /* FirstViewController.m */,
-				FD41041816B3F19E001E92C4 /* SecondViewController.h */,
-				FD41041916B3F19E001E92C4 /* SecondViewController.m */,
+				FD4104BA16B4016A001E92C4 /* AddItemViewController */,
+				FD4104B316B40130001E92C4 /* StatsViewController */,
+				FD4104AF16B40103001E92C4 /* TagsViewController */,
+				FD4104A416B4007C001E92C4 /* SearchViewController */,
 			);
 			name = UI;
 			sourceTree = "<group>";
@@ -388,6 +394,42 @@
 			children = (
 			);
 			name = Model;
+			sourceTree = "<group>";
+		};
+		FD4104A416B4007C001E92C4 /* SearchViewController */ = {
+			isa = PBXGroup;
+			children = (
+				FD4104AC16B400DF001E92C4 /* SearchViewController.h */,
+				FD4104AD16B400DF001E92C4 /* SearchViewController.m */,
+			);
+			name = SearchViewController;
+			sourceTree = "<group>";
+		};
+		FD4104AF16B40103001E92C4 /* TagsViewController */ = {
+			isa = PBXGroup;
+			children = (
+				FD4104B716B40162001E92C4 /* TagsViewController.h */,
+				FD4104B816B40162001E92C4 /* TagsViewController.m */,
+			);
+			name = TagsViewController;
+			sourceTree = "<group>";
+		};
+		FD4104B316B40130001E92C4 /* StatsViewController */ = {
+			isa = PBXGroup;
+			children = (
+				FD4104B416B40149001E92C4 /* StatsViewController.h */,
+				FD4104B516B40149001E92C4 /* StatsViewController.m */,
+			);
+			name = StatsViewController;
+			sourceTree = "<group>";
+		};
+		FD4104BA16B4016A001E92C4 /* AddItemViewController */ = {
+			isa = PBXGroup;
+			children = (
+				FD4104BB16B4017A001E92C4 /* AddItemViewController.h */,
+				FD4104BC16B4017A001E92C4 /* AddItemViewController.m */,
+			);
+			name = AddItemViewController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -466,8 +508,6 @@
 			files = (
 				FD41040316B3F19D001E92C4 /* main.m in Sources */,
 				FD41040716B3F19D001E92C4 /* AppDelegate.m in Sources */,
-				FD41041316B3F19E001E92C4 /* FirstViewController.m in Sources */,
-				FD41041A16B3F19E001E92C4 /* SecondViewController.m in Sources */,
 				FD41047116B3FB5C001E92C4 /* MagicalImportFunctions.m in Sources */,
 				FD41047216B3FB5C001E92C4 /* NSAttributeDescription+MagicalDataImport.m in Sources */,
 				FD41047316B3FB5C001E92C4 /* NSEntityDescription+MagicalDataImport.m in Sources */,
@@ -494,6 +534,10 @@
 				FD41048816B3FB5C001E92C4 /* MagicalRecord+Setup.m in Sources */,
 				FD41048916B3FB5C001E92C4 /* MagicalRecord+ShorthandSupport.m in Sources */,
 				FD41048A16B3FB5C001E92C4 /* MagicalRecord.m in Sources */,
+				FD4104AE16B400DF001E92C4 /* SearchViewController.m in Sources */,
+				FD4104B616B40149001E92C4 /* StatsViewController.m in Sources */,
+				FD4104B916B40162001E92C4 /* TagsViewController.m in Sources */,
+				FD4104BD16B4017A001E92C4 /* AddItemViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

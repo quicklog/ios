@@ -1,5 +1,5 @@
 //
-//  FirstViewController.h
+//  AddItemViewController.h
 //  ProcedureLog
 //
 //  Created by Kieran Gutteridge on 26/01/2013.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface FirstViewController : UIViewController
+@interface AddItemViewController : UITableViewController
 
 @end

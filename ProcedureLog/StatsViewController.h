@@ -1,5 +1,5 @@
 //
-//  SecondViewController.h
+//  StatsViewController.h
 //  ProcedureLog
 //
 //  Created by Kieran Gutteridge on 26/01/2013.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SecondViewController : UIViewController
+@interface StatsViewController : UIViewController
 
 @end
