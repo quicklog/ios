@@ -8,6 +8,7 @@
 
 #import "User.h"
 #import "AFNetworking.h"
+#import "NSString+Helper.h"
 
 static User *sharedUser = nil;
 
@@ -42,7 +43,7 @@ static User *sharedUser = nil;
 }
 
 
-
+#pragma mark User methods
 -(BOOL)checkAutoLogin
 {
     return YES;
@@ -51,10 +52,33 @@ static User *sharedUser = nil;
 -(void)signInEmail:(NSString *)email andPassword:(NSString *)password
 {
     
-    NSString *aemail = [email stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    NSString *login = [email stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
 	NSString *pass = [password stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     
+    NSURL *test = [NSURL URLWithString:API_ROOT];
+    AFHTTPClient *client =  [AFHTTPClient clientWithBaseURL:nil];
+    [client registerHTTPOperationClass:[AFHTTPRequestOperation class]];
+    [client setParameterEncoding:AFFormURLParameterEncoding];
+
+    
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
+    [parameters setValue:login forKey:@"email"];
+    [parameters setValue:pass forKey:@"pass"];
+    
+    NSMutableURLRequest *urlRequest = [client requestWithMethod:@"GET" path:@"register/" parameters:parameters];
+    
+    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:urlRequest
+                                                                                        success: ^(NSURLRequest *request, NSURLResponse *response, id JSON)
+                                         {
+                                             
+                                         }
+                                                                                        failure:^(NSURLRequest *request, NSURLResponse *response, NSError *error, id JSON){
+        
+                                                                                        }
+                                         ];
 }
+
+
 -(void)registerUser:(NSString *)aemail withPassword:(NSString *)apassword
 {
     NSString *user = [aemail stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
