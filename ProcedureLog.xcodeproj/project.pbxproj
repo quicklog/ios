@@ -59,6 +59,8 @@
 		FD41049D16B3FCBF001E92C4 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD41049516B3FCBF001E92C4 /* CoreTelephony.framework */; };
 		FD41049E16B3FCBF001E92C4 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD41049616B3FCBF001E92C4 /* QuartzCore.framework */; };
 		FD41049F16B3FCBF001E92C4 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD41049716B3FCBF001E92C4 /* SystemConfiguration.framework */; };
+		FD4104A216B3FEF7001E92C4 /* 09-chat-2.png in Resources */ = {isa = PBXBuildFile; fileRef = FD4104A016B3FEF7001E92C4 /* 09-chat-2.png */; };
+		FD4104A316B3FEF7001E92C4 /* 09-chat-2@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FD4104A116B3FEF7001E92C4 /* 09-chat-2@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -148,6 +150,8 @@
 		FD41049516B3FCBF001E92C4 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		FD41049616B3FCBF001E92C4 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		FD41049716B3FCBF001E92C4 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		FD4104A016B3FEF7001E92C4 /* 09-chat-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "09-chat-2.png"; sourceTree = "<group>"; };
+		FD4104A116B3FEF7001E92C4 /* 09-chat-2@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "09-chat-2@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -238,6 +242,8 @@
 		FD41042416B3F48A001E92C4 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				FD4104A016B3FEF7001E92C4 /* 09-chat-2.png */,
+				FD4104A116B3FEF7001E92C4 /* 09-chat-2@2x.png */,
 				FD41042916B3F592001E92C4 /* 14-tag.png */,
 				FD41042A16B3F592001E92C4 /* 14-tag@2x.png */,
 				FD41042516B3F494001E92C4 /* 10-medical.png */,
@@ -446,6 +452,8 @@
 				FD41042C16B3F592001E92C4 /* 14-tag@2x.png in Resources */,
 				FD41042F16B3F62A001E92C4 /* 16-line-chart.png in Resources */,
 				FD41043016B3F62A001E92C4 /* 16-line-chart@2x.png in Resources */,
+				FD4104A216B3FEF7001E92C4 /* 09-chat-2.png in Resources */,
+				FD4104A316B3FEF7001E92C4 /* 09-chat-2@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
