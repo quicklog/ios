@@ -19,7 +19,8 @@
 -(BOOL)checkAutoLogin;
 -(void)signInEmail:(NSString *)email andPassword:(NSString *)password;
 -(void)registerUser:(NSString *)aemail withPassword:(NSString *)apassword;
-
 -(void)forgetUser;
+
+-(NSArray *)getItems;
 
 @end
