@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "Item.h"
 #import "Item+Helper.h"
+#import "User.h"
 
 @implementation AppDelegate
 
@@ -17,6 +18,14 @@
     // Override point for customization after application launch.
     
     [MagicalRecord setupCoreDataStackWithAutoMigratingSqliteStoreNamed:@"ProcedureLog"];
+    
+    User *user = [User sharedUser];
+    
+    user.email = @"test@doctor.com";
+    user.token = @"TESTTHEUSER";
+    
+    
+    
     
     return YES;
 }

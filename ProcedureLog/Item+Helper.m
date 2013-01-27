@@ -17,8 +17,7 @@
     [client registerHTTPOperationClass:[AFHTTPRequestOperation class]];
     [client setParameterEncoding:AFFormURLParameterEncoding];
     
-    
-    
+
     
     NSMutableDictionary *parameters = [NSMutableDictionary dictionary];
     [parameters setValue: self.uid forKey:@"id"];
@@ -32,7 +31,7 @@
     
     NSMutableURLRequest *urlRequest = [client requestWithMethod:@"POST" path:@"me/items/" parameters:nil];
     [urlRequest setHTTPBody:jsonData];
-    [urlRequest setValue:@"THEUSER" forHTTPHeaderField:@"USERTOKEN"];
+    [urlRequest setValue:user.token forHTTPHeaderField:@"USERTOKEN"];
     
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:urlRequest
                                                                                         success: ^(NSURLRequest *request, NSURLResponse *response, id JSON)
