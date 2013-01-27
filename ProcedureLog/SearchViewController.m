@@ -11,6 +11,7 @@
 #import "AddItemViewController.h"
 #import "Item.h"
 #import "TagsViewController.h"
+#import "Tag.h"
 
 
 @interface SearchViewController ()
