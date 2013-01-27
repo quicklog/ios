@@ -39,7 +39,6 @@
     UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:3 inSection:0]];
     
     [self.tableView beginUpdates];
-    cell.backgroundColor = [UIColor greenColor];
     
     [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:3 inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
     [self.tableView endUpdates];    
@@ -50,6 +49,11 @@
     self.navigationItem.hidesBackButton = NO;
     
     UIBarButtonItem * saveButton = [[UIBarButtonItem alloc]initWithTitle:@"Save" style:UIBarButtonItemStylePlain target:self action:@selector(saveProceedure)];
+    
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+
+    NSString *tempSoundFilePath = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:@"tempRecording.aac"];
+    [fileManager removeItemAtPath:tempSoundFilePath error:NULL];
     
     saveButton.title = @"Save";
     self.navigationItem.rightBarButtonItem = saveButton;
@@ -110,9 +114,23 @@
         }
         else
         {
-            static NSString *identifier = @"RecordAudioCell";
-            cell = [tableView dequeueReusableCellWithIdentifier:identifier];
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            NSString *tempSoundFilePath = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:@"tempRecording.aac"];
+            
+            BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:tempSoundFilePath];
+            
+            if(fileExists)
+            {
+                static NSString *identifier = @"RecordAudioCell";
+                cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            }
+            else
+            {
+                static NSString *identifier = @"RecordAudioCell";
+                cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+            }
         }
     }
     else if(indexPath.row == 4)
@@ -235,6 +253,11 @@
 -(void)startRecording
 {
     NSLog(@"recording now...");
+    
+    DoRecordAudioCell *cell = (DoRecordAudioCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:3 inSection:0]];
+    
+    [cell.startStopButton setTitle:@"Stop" forState:UIControlStateNormal];
+    
     self.recorder = nil;
     [self.recorder prepareToRecord];
     [self.recorder record];
@@ -255,7 +278,6 @@
     UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:3 inSection:0]];
     
     [self.tableView beginUpdates];
-    cell.backgroundColor = [UIColor greenColor];
     
     [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:3 inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
     [self.tableView endUpdates];
@@ -272,11 +294,25 @@
     CFUUIDRef newUniqueId = CFUUIDCreate(kCFAllocatorDefault);
     CFStringRef newUniqueIdString = CFUUIDCreateString(kCFAllocatorDefault, newUniqueId);
     
+    CommentCell *cell = (CommentCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:2 inSection:0]];
+    
     NSLog(@"%@", newUniqueIdString);
     item.uid = (__bridge NSString *)newUniqueIdString;
-    item.comment = @"asdfasdf";
+    item.comment = cell.commentText.text;
 
     [localContext MR_saveToPersistentStoreAndWait];
+    
+    //also move the temp audio file to id'd directory
+    
+    NSString *tempSoundFilePath = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:@"tempRecording.aac"];
+
+    NSString *realSoundFilePath = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.aac", item.uid]];
+    
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSError *error;
+    [fileManager copyItemAtPath:tempSoundFilePath toPath:realSoundFilePath error:&error];
+    [fileManager removeItemAtPath:tempSoundFilePath error:NULL];
+    
     NSLog(@"saved proceedure");
 }
 
