@@ -10,6 +10,8 @@
 #import "Item+Helper.h"
 #import "AddItemViewController.h"
 #import "Item.h"
+#import "TagsViewController.h"
+
 
 @interface SearchViewController ()
 
@@ -115,6 +117,35 @@
     cell.textLabel.text = [NSString stringWithFormat:@"%@", thisItem.comment];
     
     return cell;
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+
+       
+ //   AddItemViewController *viewController = [[AddItemViewController alloc] init];
+
+  //  [self.navigationController pushViewController:viewController animated:YES];
+}
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+   // TagSelectedSegue
+   Item *thisItem;
+   NSIndexPath *indexPath = [self.searchResultsTableView indexPathForSelectedRow];
+    
+    if (self.searchResultsTableView == self.searchDisplayController.searchResultsTableView)
+    {
+        thisItem = [self.filteredProcedures objectAtIndex:indexPath.row];
+    }
+    else
+    {
+        thisItem = [self.proceeduresToDisplay objectAtIndex:indexPath.row];
+    }
+    
+    AddItemViewController *viewController = segue.destinationViewController;
+    
+    viewController.item = thisItem;
 }
 
 
