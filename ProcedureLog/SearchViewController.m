@@ -43,11 +43,10 @@
 
 -(void)viewWillAppear:(BOOL)animated
 {
-    [self.proceeduresToDisplay addObjectsFromArray:[Item MR_findAll]];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"timestamp == nil"];
+    [self.proceeduresToDisplay addObjectsFromArray:[Item MR_findAllSortedBy:@"timestamp" ascending:YES withPredicate:predicate]];    
 }
 
-<<<<<<< HEAD
-=======
 
 -(void)showNewProceedureScreen
 {
@@ -76,7 +75,6 @@
     [self.searchResultsTableView reloadData];
 }
 
->>>>>>> 1c865327de6547005920f1e3d1761970183ce83a
 - (void)viewDidLoad
 {
         self.amountOfDummies = 0;
@@ -186,8 +184,11 @@
     // Remove all objects from the filtered search array
     [self.filteredProcedures removeAllObjects];
      // Filter the array using NSPredicate
+    
+    NSPredicate *predicate1 = [NSPredicate predicateWithFormat:@"timestamp == nil"];
+    
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF.comment contains[c] %@",searchText];
-    self.filteredProcedures = [NSMutableArray arrayWithArray:[[Item MR_findAll] filteredArrayUsingPredicate:predicate]];
+    self.filteredProcedures = [NSMutableArray arrayWithArray:[[Item MR_findAllSortedBy:@"timestamp" ascending:YES withPredicate:predicate1] filteredArrayUsingPredicate:predicate]];
 }
 
 #pragma mark - UISearchDisplayController Delegate Methods
