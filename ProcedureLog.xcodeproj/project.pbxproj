@@ -10,9 +10,9 @@
 		C7253CBC16B410CB009B5CBE /* RecordAudioCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C7253CBB16B410CB009B5CBE /* RecordAudioCell.m */; };
 		C7253CCC16B42486009B5CBE /* DoRecordAudioCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C7253CCB16B42485009B5CBE /* DoRecordAudioCell.m */; };
 		C7253CD216B42FD3009B5CBE /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C7253CD116B42FD3009B5CBE /* AVFoundation.framework */; };
-		C7253CDE16B43532009B5CBE /* Tag.m in Sources */ = {isa = PBXBuildFile; fileRef = C7253CDD16B43532009B5CBE /* Tag.m */; };
 		C7253CE216B43534009B5CBE /* Recording.m in Sources */ = {isa = PBXBuildFile; fileRef = C7253CE116B43534009B5CBE /* Recording.m */; };
-		C7253CE516B43535009B5CBE /* Item.m in Sources */ = {isa = PBXBuildFile; fileRef = C7253CE416B43535009B5CBE /* Item.m */; };
+		C7253D0E16B54151009B5CBE /* Item.m in Sources */ = {isa = PBXBuildFile; fileRef = C7253D0D16B54151009B5CBE /* Item.m */; };
+		C7253D1116B54152009B5CBE /* Tag.m in Sources */ = {isa = PBXBuildFile; fileRef = C7253D1016B54152009B5CBE /* Tag.m */; };
 		FD08FE8A16B43B3500C8C8F3 /* NSString+Helper.m in Sources */ = {isa = PBXBuildFile; fileRef = FD08FE8916B43B3500C8C8F3 /* NSString+Helper.m */; };
 		FD4103F716B3F19D001E92C4 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD4103F616B3F19D001E92C4 /* UIKit.framework */; };
 		FD4103F916B3F19D001E92C4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD4103F816B3F19D001E92C4 /* Foundation.framework */; };
@@ -102,12 +102,12 @@
 		C7253CCA16B42485009B5CBE /* DoRecordAudioCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DoRecordAudioCell.h; sourceTree = "<group>"; };
 		C7253CCB16B42485009B5CBE /* DoRecordAudioCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DoRecordAudioCell.m; sourceTree = "<group>"; };
 		C7253CD116B42FD3009B5CBE /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
-		C7253CDC16B43532009B5CBE /* Tag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tag.h; sourceTree = "<group>"; };
-		C7253CDD16B43532009B5CBE /* Tag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tag.m; sourceTree = "<group>"; };
 		C7253CE016B43534009B5CBE /* Recording.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Recording.h; sourceTree = "<group>"; };
 		C7253CE116B43534009B5CBE /* Recording.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Recording.m; sourceTree = "<group>"; };
-		C7253CE316B43534009B5CBE /* Item.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Item.h; sourceTree = "<group>"; };
-		C7253CE416B43535009B5CBE /* Item.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Item.m; sourceTree = "<group>"; };
+		C7253D0C16B54151009B5CBE /* Item.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Item.h; sourceTree = "<group>"; };
+		C7253D0D16B54151009B5CBE /* Item.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Item.m; sourceTree = "<group>"; };
+		C7253D0F16B54152009B5CBE /* Tag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tag.h; sourceTree = "<group>"; };
+		C7253D1016B54152009B5CBE /* Tag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tag.m; sourceTree = "<group>"; };
 		FD08FE8816B43B3500C8C8F3 /* NSString+Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Helper.h"; sourceTree = "<group>"; };
 		FD08FE8916B43B3500C8C8F3 /* NSString+Helper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Helper.m"; sourceTree = "<group>"; };
 		FD08FE9816B43C9900C8C8F3 /* Config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Config.h; sourceTree = "<group>"; };
@@ -497,20 +497,20 @@
 		FD41048F16B3FB75001E92C4 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				C7253CE316B43534009B5CBE /* Item.h */,
-				C7253CE416B43535009B5CBE /* Item.m */,
 				FD5C1A8016B4374E002DDB98 /* Item+Helper.h */,
 				FD5C1A8116B4374E002DDB98 /* Item+Helper.m */,
 				C7253CE016B43534009B5CBE /* Recording.h */,
 				C7253CE116B43534009B5CBE /* Recording.m */,
 				FD5C1A8316B43760002DDB98 /* Recording+Helper.h */,
 				FD5C1A8416B43760002DDB98 /* Recording+Helper.m */,
-				C7253CDC16B43532009B5CBE /* Tag.h */,
-				C7253CDD16B43532009B5CBE /* Tag.m */,
 				FD5C1A8616B43770002DDB98 /* Tag+Helper.h */,
 				FD5C1A8716B43770002DDB98 /* Tag+Helper.m */,
 				FD5C1A8916B437B8002DDB98 /* User.h */,
 				FD5C1A8A16B437B8002DDB98 /* User.m */,
+				C7253D0F16B54152009B5CBE /* Tag.h */,
+				C7253D1016B54152009B5CBE /* Tag.m */,
+				C7253D0C16B54151009B5CBE /* Item.h */,
+				C7253D0D16B54151009B5CBE /* Item.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -723,9 +723,7 @@
 				FD4104CC16B41FC1001E92C4 /* ProccedureLogDataModel.xcdatamodeld in Sources */,
 				FD47C77416B4319F0027AEDF /* UIImageView+Reflected.m in Sources */,
 				FD47C77716B431A70027AEDF /* RSTapRateView.m in Sources */,
-				C7253CDE16B43532009B5CBE /* Tag.m in Sources */,
 				C7253CE216B43534009B5CBE /* Recording.m in Sources */,
-				C7253CE516B43535009B5CBE /* Item.m in Sources */,
 				FD5C1A8216B4374E002DDB98 /* Item+Helper.m in Sources */,
 				FD5C1A8516B43760002DDB98 /* Recording+Helper.m in Sources */,
 				FD5C1A8816B43770002DDB98 /* Tag+Helper.m in Sources */,
@@ -740,6 +738,8 @@
 				FDDB7E5516B52F350044368B /* AFURLConnectionOperation.m in Sources */,
 				FDDB7E5616B52F350044368B /* AFXMLRequestOperation.m in Sources */,
 				FDDB7E5716B52F350044368B /* UIImageView+AFNetworking.m in Sources */,
+				C7253D0E16B54151009B5CBE /* Item.m in Sources */,
+				C7253D1116B54152009B5CBE /* Tag.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
