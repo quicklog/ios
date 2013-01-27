@@ -107,7 +107,7 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
         
-        RSTapRateView *tapRateView = [[RSTapRateView alloc] initWithFrame:CGRectMake(45,75,220, 50.f)];
+        RSTapRateView *tapRateView = [[RSTapRateView alloc] initWithFrame:CGRectMake(10,55,300, 50.f)];
         [cell addSubview:tapRateView];
     }
     else if(indexPath.row == 2)
@@ -169,27 +169,32 @@
 
 -(float)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    //refactor hack hell :)
     float height = 85;
     
-    if(indexPath.row == 2)
+    if(indexPath.row == 1)
+    {
+        height =  130;
+    }
+    else if(indexPath.row == 2)
     {
         height = 214;
     }
-    
-    if(indexPath.row == 3 && self.readyToRecord)
+    else if(indexPath.row == 3 )
     {
-        height = 120;
+        NSString *tempSoundFilePath = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:@"tempRecording.aac"];
+        
+        BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:tempSoundFilePath];
+
+        if(self.readyToRecord || fileExists)
+        {
+            height = 120;
+        }
+        else
+        {
+            height = 120;
+        }
     }
-    
-    NSString *tempSoundFilePath = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:@"tempRecording.aac"];
-    
-    BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:tempSoundFilePath];
-    
-    if(indexPath.row == 3 && fileExists)
-    {
-        height = 120;
-    }
-    
     return height;
 }
 
