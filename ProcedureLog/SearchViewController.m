@@ -46,6 +46,8 @@
     [self.proceeduresToDisplay addObjectsFromArray:[Item MR_findAll]];
 }
 
+<<<<<<< HEAD
+=======
 
 -(void)showNewProceedureScreen
 {
@@ -74,6 +76,7 @@
     [self.searchResultsTableView reloadData];
 }
 
+>>>>>>> 1c865327de6547005920f1e3d1761970183ce83a
 - (void)viewDidLoad
 {
         self.amountOfDummies = 0;
