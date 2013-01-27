@@ -14,5 +14,6 @@
 @interface Item (Helper)
 
 -(void)saveToCloudWithUser:(User *)user;
++(NSArray *)getAllMyProceedures;
 
 @end
