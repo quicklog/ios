@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <AVFoundation/AVFoundation.h>
 
-@interface AddItemViewController : UITableViewController <AVAudioRecorderDelegate, AVAudioSessionDelegate>
+@interface AddItemViewController : UITableViewController <AVAudioRecorderDelegate, AVAudioSessionDelegate, AVAudioPlayerDelegate>
 
 @property (nonatomic, retain) UITableViewCell * recordAudioCell;
 @property (nonatomic, readwrite) BOOL readyToRecord;
@@ -18,6 +18,7 @@
 @property (nonatomic, retain) AVAudioSession *audioSession;
 @property (nonatomic, readwrite) int numberOfSecondsRecordedFor;
 @property (nonatomic, retain) NSTimer *updateTimer;
+@property (nonatomic, retain) AVAudioPlayer *audioPlayer;
 
 - (IBAction)startOrStopRecording:(id)sender;
 - (IBAction)cancelRecording:(id)sender;

@@ -307,7 +307,7 @@
                                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
                                             <connections>
-                                                <action selector="playAudio:" destination="DWI-Ej-wkb" eventType="touchUpInside" id="yrP-70-ZdV"/>
+                                                <action selector="playAudio:" destination="DWI-Ej-wkb" eventType="touchUpInside" id="cVk-ga-e2w"/>
                                             </connections>
                                         </button>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Narration Added" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yeB-Pb-ZDz">
@@ -328,7 +328,7 @@
                                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             </state>
                                             <connections>
-                                                <action selector="deleteAudio:" destination="DWI-Ej-wkb" eventType="touchUpInside" id="hTQ-WO-o0y"/>
+                                                <action selector="deleteAudio:" destination="DWI-Ej-wkb" eventType="touchUpInside" id="Q34-Ak-3qV"/>
                                             </connections>
                                         </button>
                                     </subviews>
