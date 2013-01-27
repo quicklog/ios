@@ -44,11 +44,6 @@
     [self.proceeduresToDisplay addObjectsFromArray:[Item MR_findAll]];
 }
 
--(void)showNewProceedureScreen
-{
-    NSLog(@"open");
-}
-
 - (void)viewDidLoad
 {
     UIBarButtonItem * addNewButton = [[UIBarButtonItem alloc]initWithTitle:@"New Proceedure" style:UIBarButtonItemStylePlain target:self action:@selector(showNewProceedureScreen)];
