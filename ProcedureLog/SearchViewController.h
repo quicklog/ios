@@ -13,7 +13,7 @@
 @property (nonatomic, retain) IBOutlet UISearchBar *searchBar;
 @property (nonatomic, retain) IBOutlet UITableView *searchResultsTableView;
 @property (nonatomic, retain) NSString *search;
-@property (nonatomic, retain) NSMutableArray * proceeduresToDisplay;
+@property (nonatomic, retain) NSMutableArray *proceeduresToDisplay, *filteredProcedures;
 
 - (void)filterContentForSearchText:(NSString*)searchText scope:(NSString*)scope;
 

@@ -13,6 +13,7 @@
 #import "CommentCell.h"
 #import "PlayAudioCell.h"
 #import "User.h"
+#import "ProcedureCell.h"
 
 #import "RSTapRateView.h"
 
@@ -26,13 +27,7 @@
 {
     self = [super initWithStyle:style];
     if (self) {
-        self.audioSession = [AVAudioSession sharedInstance];
-        NSError *error = nil;
-        [self.audioSession setCategory:AVAudioSessionCategoryRecord error:&error];
-        if (error) {
-            NSLog(@"%@", error);
-        }
-        // Custom initialization
+                // Custom initialization
     }
     return self;
 }
@@ -49,6 +44,14 @@
 
 - (void)viewDidLoad
 {
+    
+    self.audioSession = [AVAudioSession sharedInstance];
+    NSError *error = nil;
+    [self.audioSession setCategory:AVAudioSessionCategoryRecord error:&error];
+    if (error) {
+        NSLog(@"%@", error);
+    }
+    
     self.navigationItem.hidesBackButton = NO;
     
     UIBarButtonItem * saveButton = [[UIBarButtonItem alloc]initWithTitle:@"Save" style:UIBarButtonItemStylePlain target:self action:@selector(saveProceedure)];
@@ -87,9 +90,13 @@
     
     if(indexPath.row  == 0)
     {
+        
         static NSString *identifier = @"ProcedureCell";
-        cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+        ProcedureCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.procedureDetailLabel.text = self.item.comment;
+        
+        return cell;
         
         
     }
@@ -147,6 +154,14 @@
         static NSString *identifier = @"MenuOptionsCell";
         cell = [tableView dequeueReusableCellWithIdentifier:identifier];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    }
+    
+    
+    if(cell == nil)
+    {
+        
+        NSLog(@"Cell was nil %i",indexPath.row);
+        cell = [[UITableViewCell alloc] init];
     }
     
     return cell;
@@ -387,9 +402,7 @@
 }
 
 -(IBAction)deleteAudio:(id)sender
-{
-    NSLog(@"deleting...");
-    
+{    
     NSFileManager *fileManager = [NSFileManager defaultManager];
     
     NSString *tempSoundFilePath = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:@"tempRecording.aac"];

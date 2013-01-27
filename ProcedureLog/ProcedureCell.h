@@ -9,5 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface ProcedureCell : UITableViewCell
+@property (strong, nonatomic) IBOutlet UILabel *procedureDetailLabel;
+
 
 @end

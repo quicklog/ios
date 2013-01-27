@@ -8,11 +8,15 @@
 
 #import <UIKit/UIKit.h>
 #import <AVFoundation/AVFoundation.h>
+#import "Item.h"
 
 @interface AddItemViewController : UITableViewController <AVAudioRecorderDelegate, AVAudioSessionDelegate, AVAudioPlayerDelegate>
 
 @property (nonatomic, retain) UITableViewCell * recordAudioCell;
 @property (nonatomic, readwrite) BOOL readyToRecord;
+@property (nonatomic, strong) Item *item;
+
+
 
 @property (nonatomic, retain) AVAudioRecorder *recorder;
 @property (nonatomic, retain) AVAudioSession *audioSession;
