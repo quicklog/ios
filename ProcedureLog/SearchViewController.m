@@ -29,6 +29,8 @@
     return self;
 }
 
+
+
 -(NSMutableArray *)proceeduresToDisplay
 {
     if(!_proceeduresToDisplay)
@@ -44,13 +46,37 @@
     [self.proceeduresToDisplay addObjectsFromArray:[Item MR_findAll]];
 }
 
+
 -(void)showNewProceedureScreen
 {
-    NSLog(@"open");
+    
+    NSManagedObjectContext *currentContext = [NSManagedObjectContext MR_contextForCurrentThread];
+    Item *item = [Item MR_createInContext:currentContext];
+    
+    switch (self.amountOfDummies) {
+        case 0:
+            item.comment = @"Cannula";
+            break;
+        case 1:
+            item.comment = @"Blood Gas";
+            break;
+        case 2:
+            item.comment = @"Blood Test";
+            break;
+        default:
+            break;
+    }
+    
+    self.amountOfDummies++;
+    //blocking
+    [currentContext MR_saveToPersistentStoreAndWait];
+    
+    [self.searchResultsTableView reloadData];
 }
 
 - (void)viewDidLoad
 {
+        self.amountOfDummies = 0;
     UIBarButtonItem * addNewButton = [[UIBarButtonItem alloc]initWithTitle:@"New Proceedure" style:UIBarButtonItemStylePlain target:self action:@selector(showNewProceedureScreen)];
     self.navigationItem.rightBarButtonItem = addNewButton;
     
