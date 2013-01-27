@@ -42,6 +42,7 @@
     NSMutableURLRequest *urlRequest = [client requestWithMethod:@"POST" path:@"me/items/" parameters:nil];
     [urlRequest setHTTPBody:jsonData];
     [urlRequest setValue:user.token forHTTPHeaderField:@"USERTOKEN"];
+    [urlRequest setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:urlRequest
                                                                                         success: ^(NSURLRequest *request, NSURLResponse *response, id JSON)

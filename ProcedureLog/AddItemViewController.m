@@ -14,6 +14,8 @@
 #import "PlayAudioCell.h"
 #import "User.h"
 
+#import "RSTapRateView.h"
+
 @interface AddItemViewController ()
 
 @end
@@ -88,12 +90,18 @@
         static NSString *identifier = @"ProcedureCell";
         cell = [tableView dequeueReusableCellWithIdentifier:identifier];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+        
     }
     else if(indexPath.row == 1)
     {
         static NSString *identifier = @"RatingCell";
         cell = [tableView dequeueReusableCellWithIdentifier:identifier];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+        
+        RSTapRateView *tapRateView = [[RSTapRateView alloc] initWithFrame:CGRectMake(45,75,220, 50.f)];
+        [cell addSubview:tapRateView];
     }
     else if(indexPath.row == 2)
     {
