@@ -11,6 +11,7 @@
 #import "Item+Helper.h"
 #import "Recording.h"
 #import "CommentCell.h"
+#import "PlayAudioCell.h"
 
 @interface AddItemViewController ()
 
@@ -153,7 +154,18 @@
     
     if(indexPath.row == 3 && self.readyToRecord)
     {
-        height = 120;
+        NSString *tempSoundFilePath = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:@"tempRecording.aac"];
+        
+        BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:tempSoundFilePath];
+        
+        if(fileExists)
+        {
+            height = 120;
+        }
+        else
+        {
+            height = 120;
+        }
     }
     
     return height;
@@ -173,6 +185,10 @@
 
 - (IBAction)cancelRecording:(id)sender
 {
+    DoRecordAudioCell *cell = (DoRecordAudioCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:3 inSection:0]];
+    
+    [cell.startStopButton setTitle:@"Play" forState:UIControlStateNormal];
+    
     [self.updateTimer invalidate];
     self.updateTimer = nil;
     
@@ -265,6 +281,10 @@
 
 -(void)stopRecording
 {
+    DoRecordAudioCell *cell = (DoRecordAudioCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:3 inSection:0]];
+
+    [cell.startStopButton setTitle:@"Play" forState:UIControlStateNormal];
+
     NSLog(@"stop recording");
     
     [self.updateTimer invalidate];
@@ -274,7 +294,6 @@
     self.numberOfSecondsRecordedFor = 0;
 
     self.readyToRecord = NO;
-    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:3 inSection:0]];
     
     [self.tableView beginUpdates];
     
@@ -318,12 +337,53 @@
 
 -(IBAction)playAudio:(id)sender
 {
+    PlayAudioCell *cell = (PlayAudioCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:3 inSection:0]];
+        
+    NSError *error = nil;
+    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback error:&error];
+    if (error) {
+        NSLog(@"%@", error);
+    }
     
+    if (self.audioPlayer.isPlaying) {
+        [self.audioPlayer stop];
+        [cell.listenButton setTitle:@"Play" forState:UIControlStateNormal];
+        NSLog(@"stopping...");
+
+    }
+    else
+    {
+        NSLog(@"playing...");
+
+        [cell.listenButton setTitle:@"Stop" forState:UIControlStateNormal];
+
+        NSString *tempSoundFilePath = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:@"tempRecording.aac"];
+        
+        self.audioPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:[NSURL fileURLWithPath:tempSoundFilePath] error:&error];
+        if (error) {
+            NSLog(@"%@", error);
+        }
+        self.audioPlayer.delegate = self;
+        bool play = [self.audioPlayer play];
+        if (!play) {
+            NSLog(@"someting went wrong...");
+        }
+    }
 }
 
 -(IBAction)deleteAudio:(id)sender
 {
+    NSLog(@"deleting...");
     
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    
+    NSString *tempSoundFilePath = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:@"tempRecording.aac"];
+    [fileManager removeItemAtPath:tempSoundFilePath error:NULL];
+    
+    [self.tableView beginUpdates];
+    
+    [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForRow:3 inSection:0]] withRowAnimation:UITableViewRowAnimationFade];
+    [self.tableView endUpdates];
 }
 
 
