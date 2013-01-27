@@ -12,6 +12,7 @@
 #import "Recording.h"
 #import "CommentCell.h"
 #import "PlayAudioCell.h"
+#import "User.h"
 
 @interface AddItemViewController ()
 
@@ -330,9 +331,10 @@
     [fileManager copyItemAtPath:tempSoundFilePath toPath:realSoundFilePath error:&error];
     [fileManager removeItemAtPath:tempSoundFilePath error:NULL];
     
-    [item saveToCloud];
     
-    NSLog(@"saved proceedure");
+    User *user = [User sharedUser];
+    
+    [item saveToCloudWithUser:user];
 }
 
 -(IBAction)playAudio:(id)sender

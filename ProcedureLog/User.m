@@ -90,6 +90,40 @@ static User *sharedUser = nil;
     
 }
 
+-(NSArray *)analyseItemsWithFilter:(NSString *)filter
+{
+    AFHTTPClient *client =  [AFHTTPClient clientWithBaseURL:[NSURL URLWithString:API_ROOT]];
+    [client registerHTTPOperationClass:[AFHTTPRequestOperation class]];
+    [client setParameterEncoding:AFFormURLParameterEncoding];
+    
+    NSError *error;
+    
+    NSMutableString *path = [NSMutableString stringWithString:@"analyse/items"];
+    
+    if(![filter empty])
+    {
+        [path appendString:filter];
+    }
+    
+    NSMutableURLRequest *urlRequest = [client requestWithMethod:@"GET" path:path parameters:nil];
+    [urlRequest setValue:@"TESTTHEUSER" forHTTPHeaderField:@"USERTOKEN"];
+    
+    AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:urlRequest
+                                                                                        success: ^(NSURLRequest *request, NSURLResponse *response, id JSON)
+                                         {
+                                             NSLog(@"Items %@",JSON);
+                                         }
+                                                                                        failure:^(NSURLRequest *request, NSURLResponse *response, NSError *error, id JSON){
+                                                                                            
+                                                                                            NSLog(@"Error %@",JSON);
+                                                                                            
+                                                                                        }
+                                         ];
+    
+    
+    [operation start];
+}
+
 
 
 @end
