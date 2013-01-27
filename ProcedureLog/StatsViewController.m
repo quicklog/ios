@@ -7,6 +7,7 @@
 //
 
 #import "StatsViewController.h"
+#import "Item.h"
 
 @interface StatsViewController ()
 
@@ -23,8 +24,31 @@
     return self;
 }
 
+-(NSMutableArray *)proceeduresToDisplay
+{
+    if(!_proceeduresToDisplay)
+    {
+        self.proceeduresToDisplay = [[NSMutableArray alloc]init];
+    }
+    
+    return _proceeduresToDisplay;
+}
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [self.proceeduresToDisplay addObjectsFromArray:[Item MR_findAll]];
+}
+
+-(void)showNewProceedureScreen
+{
+    NSLog(@"open");
+}
+
 - (void)viewDidLoad
 {
+    UIBarButtonItem * addNewButton = [[UIBarButtonItem alloc]initWithTitle:@"New Proceedure" style:UIBarButtonItemStylePlain target:self action:@selector(showNewProceedureScreen)];
+    self.navigationItem.rightBarButtonItem = addNewButton;
+    
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
 }
@@ -34,5 +58,32 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+//table view stuff
+
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return [self.proceeduresToDisplay count];
+}
+
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    Item * thisItem = [self.proceeduresToDisplay objectAtIndex:indexPath.row];
+    
+    UITableViewCell *cell  = nil;
+    
+    static NSString *identifier = @"ProceedureHistoryCell";
+    cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    cell.textLabel.text = [NSString stringWithFormat:@"%@", thisItem.timestamp];
+    
+    return cell;
+}
+
 
 @end

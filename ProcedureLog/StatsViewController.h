@@ -8,6 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-@interface StatsViewController : UIViewController
+@interface StatsViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
+
+@property (nonatomic, retain) IBOutlet UISearchBar *searchBar;
+@property (nonatomic, retain) IBOutlet UITableView *searchResultsTableView;
+@property (nonatomic, retain) NSString *search;
+@property (nonatomic, retain) NSMutableArray * proceeduresToDisplay;
 
 @end
