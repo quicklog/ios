@@ -637,9 +637,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		FD4103F116B3F19D001E92C4 /* ProcedureLog */ = {
+		FD4103F116B3F19D001E92C4 /* QuickLog */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = FD41042116B3F19E001E92C4 /* Build configuration list for PBXNativeTarget "ProcedureLog" */;
+			buildConfigurationList = FD41042116B3F19E001E92C4 /* Build configuration list for PBXNativeTarget "QuickLog" */;
 			buildPhases = (
 				FD4103EE16B3F19D001E92C4 /* Sources */,
 				FD4103EF16B3F19D001E92C4 /* Frameworks */,
@@ -649,7 +649,7 @@
 			);
 			dependencies = (
 			);
-			name = ProcedureLog;
+			name = QuickLog;
 			productName = ProcedureLog;
 			productReference = FD4103F216B3F19D001E92C4 /* ProcedureLog.app */;
 			productType = "com.apple.product-type.application";
@@ -675,7 +675,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				FD4103F116B3F19D001E92C4 /* ProcedureLog */,
+				FD4103F116B3F19D001E92C4 /* QuickLog */,
 			);
 		};
 /* End PBXProject section */
@@ -889,7 +889,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		FD41042116B3F19E001E92C4 /* Build configuration list for PBXNativeTarget "ProcedureLog" */ = {
+		FD41042116B3F19E001E92C4 /* Build configuration list for PBXNativeTarget "QuickLog" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				FD41042216B3F19E001E92C4 /* Debug */,

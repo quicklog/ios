@@ -15,6 +15,8 @@
 @property (nonatomic, retain) NSString *search;
 @property (nonatomic, retain) NSMutableArray *proceeduresToDisplay, *filteredProcedures;
 
+@property (nonatomic) int amountOfDummies;
+
 - (void)filterContentForSearchText:(NSString*)searchText scope:(NSString*)scope;
 
 @end
