@@ -44,6 +44,9 @@
 
 -(void)viewWillAppear:(BOOL)animated
 {
+    
+    
+    [self.proceeduresToDisplay removeAllObjects];
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"timestamp == nil"];
     [self.proceeduresToDisplay addObjectsFromArray:[Item MR_findAllSortedBy:@"timestamp" ascending:YES withPredicate:predicate]];
     
