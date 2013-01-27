@@ -15,6 +15,17 @@
 
 @implementation StatsViewController
 
+
+#pragma mark - Application's Documents directory
+
+/**
+ Returns the URL to the application's Documents directory.
+ */
+- (NSURL *)applicationDocumentsDirectory
+{
+    return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
+}
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -24,19 +35,23 @@
     return self;
 }
 
--(NSMutableArray *)proceeduresToDisplay
+-(NSMutableArray *)theProceedures
 {
-    if(!_proceeduresToDisplay)
+    if(!_theProceedures)
     {
-        self.proceeduresToDisplay = [[NSMutableArray alloc]init];
+        self.theProceedures = [[NSMutableArray alloc]init];
     }
     
-    return _proceeduresToDisplay;
+    return _theProceedures;
 }
 
 -(void)viewWillAppear:(BOOL)animated
 {
-    [self.proceeduresToDisplay addObjectsFromArray:[Item MR_findAll]];
+    self.title = @"My Proceedures";
+
+    NSLog(@"appearing");
+    [self.theProceedures addObjectsFromArray:[Item MR_findAll]];
+    [super viewWillAppear:animated];
 }
 
 -(void)showNewProceedureScreen
@@ -46,9 +61,6 @@
 
 - (void)viewDidLoad
 {
-    UIBarButtonItem * addNewButton = [[UIBarButtonItem alloc]initWithTitle:@"New Proceedure" style:UIBarButtonItemStylePlain target:self action:@selector(showNewProceedureScreen)];
-    self.navigationItem.rightBarButtonItem = addNewButton;
-    
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
 }
@@ -66,22 +78,47 @@
     return 1;
 }
 
+-(float)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 80;
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [self.proceeduresToDisplay count];
+    return [self.theProceedures count];
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    Item * thisItem = [self.proceeduresToDisplay objectAtIndex:indexPath.row];
+    Item * thisItem = [self.theProceedures objectAtIndex:indexPath.row];
     
     UITableViewCell *cell  = nil;
+    NSString * faketag;
+    
+    if(indexPath.row == 0)
+    {
+        faketag = @"Blood test";
+    }
+    else if(indexPath.row == 1)
+    {
+        faketag = @"Cannula";
+    }
+    else
+    {
+        faketag = @"Blood gas";
+    }
     
     static NSString *identifier = @"ProceedureHistoryCell";
     cell = [tableView dequeueReusableCellWithIdentifier:identifier];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    cell.textLabel.text = [NSString stringWithFormat:@"%@", thisItem.timestamp];
+    cell.textLabel.text = [NSString stringWithFormat:@"%@", faketag];
     
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"d/m/Y HH:MM:SS"];
+    
+    NSString *test = [formatter stringFromDate:thisItem.timestamp];
+    
+    cell.detailTextLabel.text = test;
     return cell;
 }
 
