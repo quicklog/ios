@@ -8,6 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SearchViewController : UIViewController
+@interface SearchViewController : UIViewController <UISearchBarDelegate, UITableViewDataSource, UITableViewDelegate>
+
+@property (nonatomic, retain) IBOutlet UISearchBar *searchBar;
+@property (nonatomic, retain) IBOutlet UITableView *searchResultsTableView;
+@property (nonatomic, retain) NSString *search;
+@property (nonatomic, retain) NSMutableArray * proceeduresToDisplay;
+
+- (void)filterContentForSearchText:(NSString*)searchText scope:(NSString*)scope;
 
 @end

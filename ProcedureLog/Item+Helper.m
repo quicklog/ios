@@ -11,6 +11,12 @@
 
 @implementation Item (Helper)
 
++(NSArray *)getAllMyProceedures
+{
+    NSArray *myProceedures = [self MR_findAll];
+    return myProceedures;
+}
+
 -(void)saveToCloudWithUser:(User *)user
 {
     AFHTTPClient *client =  [AFHTTPClient clientWithBaseURL:[NSURL URLWithString:API_ROOT]];
