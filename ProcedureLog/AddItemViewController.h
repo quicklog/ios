@@ -24,4 +24,7 @@
 - (IBAction)showRecordAudioTools:(id)sender;
 -(void)saveProceedure;
 
+-(IBAction)playAudio:(id)sender;
+-(IBAction)deleteAudio:(id)sender;
+
 @end

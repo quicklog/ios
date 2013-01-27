@@ -8,7 +8,7 @@
 
 #import "AddItemViewController.h"
 #import "DoRecordAudioCell.h"
-#import "Item.h"
+#import "Item+Helper.h"
 #import "Recording.h"
 #import "CommentCell.h"
 
@@ -36,7 +36,6 @@
 -(IBAction)showRecordAudioTools:(id)sender
 {
     self.readyToRecord = YES;
-    UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:3 inSection:0]];
     
     [self.tableView beginUpdates];
     
@@ -120,7 +119,7 @@
             
             if(fileExists)
             {
-                static NSString *identifier = @"RecordAudioCell";
+                static NSString *identifier = @"PlayAudioCell";
                 cell = [tableView dequeueReusableCellWithIdentifier:identifier];
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
             }
@@ -296,7 +295,6 @@
     
     CommentCell *cell = (CommentCell *)[self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:2 inSection:0]];
     
-    NSLog(@"%@", newUniqueIdString);
     item.uid = (__bridge NSString *)newUniqueIdString;
     item.comment = cell.commentText.text;
 
@@ -313,7 +311,20 @@
     [fileManager copyItemAtPath:tempSoundFilePath toPath:realSoundFilePath error:&error];
     [fileManager removeItemAtPath:tempSoundFilePath error:NULL];
     
+    [item saveToCloud];
+    
     NSLog(@"saved proceedure");
 }
+
+-(IBAction)playAudio:(id)sender
+{
+    
+}
+
+-(IBAction)deleteAudio:(id)sender
+{
+    
+}
+
 
 @end

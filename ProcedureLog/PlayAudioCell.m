@@ -6,9 +6,9 @@
 //  Copyright (c) 2013 Intohand Ltd. All rights reserved.
 //
 
-#import "MenuOptionsCell.h"
+#import "PlayAudioCell.h"
 
-@implementation MenuOptionsCell
+@implementation PlayAudioCell
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
