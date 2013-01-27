@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MenuOptionsCell : UITableViewCell
+@interface PlayAudioCell : UITableViewCell
+
+@property (nonatomic, retain) IBOutlet UIButton * listenButton;
+@property (nonatomic, retain) IBOutlet UIButton * deleteButton;
 
 @end
