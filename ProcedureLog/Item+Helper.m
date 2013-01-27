@@ -11,7 +11,7 @@
 
 @implementation Item (Helper)
 
--(void)saveToCloud:(User *)user
+-(void)saveToCloudWithUser:(User *)user
 {
     AFHTTPClient *client =  [AFHTTPClient clientWithBaseURL:[NSURL URLWithString:API_ROOT]];
     [client registerHTTPOperationClass:[AFHTTPRequestOperation class]];

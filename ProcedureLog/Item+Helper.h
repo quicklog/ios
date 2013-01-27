@@ -7,11 +7,12 @@
 //
 
 #import "Item.h"
+#import "User.h"
 
 #import "AFNetworking.h"
 
 @interface Item (Helper)
 
--(void)saveToCloud;
+-(void)saveToCloudWithUser:(User *)user;
 
 @end
