@@ -7,10 +7,11 @@
 //
 
 #import "Item+Helper.h"
+#import "User.h"
 
 @implementation Item (Helper)
 
--(void)saveToCloud
+-(void)saveToCloud:(User *)user
 {
     AFHTTPClient *client =  [AFHTTPClient clientWithBaseURL:[NSURL URLWithString:API_ROOT]];
     [client registerHTTPOperationClass:[AFHTTPRequestOperation class]];
@@ -31,6 +32,7 @@
     
     NSMutableURLRequest *urlRequest = [client requestWithMethod:@"POST" path:@"me/items/" parameters:nil];
     [urlRequest setHTTPBody:jsonData];
+    [urlRequest setValue:@"THEUSER" forHTTPHeaderField:@"USERTOKEN"];
     
     AFJSONRequestOperation *operation = [AFJSONRequestOperation JSONRequestOperationWithRequest:urlRequest
                                                                                         success: ^(NSURLRequest *request, NSURLResponse *response, id JSON)
