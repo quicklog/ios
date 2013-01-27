@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="2843" systemVersion="11G63" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="4">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="2844" systemVersion="12C60" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="4">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1929"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1930"/>
     </dependencies>
     <scenes>
         <!--Tab Bar Controller-->
@@ -16,7 +16,6 @@
                     </tabBar>
                     <connections>
                         <segue destination="JSQ-eC-aFN" kind="relationship" relationship="viewControllers" id="bVa-wk-Gxc"/>
-                        <segue destination="OMn-Ch-K33" kind="relationship" relationship="viewControllers" id="XF2-AH-CcW"/>
                         <segue destination="dS0-z4-aGY" kind="relationship" relationship="viewControllers" id="Gsh-tc-J7f"/>
                     </connections>
                 </tabBarController>
@@ -83,7 +82,7 @@
             <objects>
                 <tableViewController id="DWI-Ej-wkb" customClass="AddItemViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="85" sectionHeaderHeight="22" sectionFooterHeight="22" id="MoC-UY-yO8">
-                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <rect key="frame" x="0.0" y="64" width="320" height="455"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
@@ -396,7 +395,7 @@
             <objects>
                 <tableViewController id="WWT-Wu-90L" customClass="TagsViewController" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="XJc-R8-x3r">
-                        <rect key="frame" x="0.0" y="64" width="320" height="455"/>
+                        <rect key="frame" x="0.0" y="20" width="320" height="548"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
@@ -416,22 +415,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Wg6-iQ-GTq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="801" y="403"/>
-        </scene>
-        <!--Navigation Controller - Tags-->
-        <scene sceneID="gv6-QQ-MGz">
-            <objects>
-                <navigationController definesPresentationContext="YES" id="OMn-Ch-K33" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Tags" image="14-tag.png" id="F53-Dz-YHv"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="orC-wr-5kE">
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <connections>
-                        <segue destination="WWT-Wu-90L" kind="relationship" relationship="rootViewController" id="xJy-Zp-dKm"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="bM9-SC-PTS" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="311" y="347"/>
         </scene>
         <!--Navigation Controller - AddNew-->
         <scene sceneID="vm1-AE-V7J">
@@ -520,7 +503,6 @@
     <resources>
         <image name="09-chat-2.png" width="24" height="22"/>
         <image name="10-medical.png" width="22" height="22"/>
-        <image name="14-tag.png" width="22" height="22"/>
         <image name="16-line-chart.png" width="30" height="24"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
@@ -529,6 +511,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="3Tk-o7-X8o"/>
+        <segue reference="Gos-It-0Du"/>
     </inferredMetricsTieBreakers>
 </document>

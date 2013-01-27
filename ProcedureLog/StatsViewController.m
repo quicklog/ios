@@ -47,14 +47,8 @@
 
 -(void)viewWillAppear:(BOOL)animated
 {
-    self.title = @"My Proceedures";
-
-    NSLog(@"appearing");
-    
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"timestamp != nil"];
     [self.theProceedures addObjectsFromArray:[Item MR_findAllSortedBy:@"timestamp" ascending:YES withPredicate:predicate]];
-    
-    //[super viewWillAppear:animated];
 }
 
 -(void)showNewProceedureScreen

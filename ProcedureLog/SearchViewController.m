@@ -12,6 +12,7 @@
 #import "Item.h"
 #import "TagsViewController.h"
 #import "Tag.h"
+#import "NSString+Helper.h"
 
 
 @interface SearchViewController ()
@@ -44,7 +45,9 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"timestamp == nil"];
-    [self.proceeduresToDisplay addObjectsFromArray:[Item MR_findAllSortedBy:@"timestamp" ascending:YES withPredicate:predicate]];    
+    [self.proceeduresToDisplay addObjectsFromArray:[Item MR_findAllSortedBy:@"timestamp" ascending:YES withPredicate:predicate]];
+    
+    [self.searchResultsTableView reloadData];
 }
 
 
@@ -54,30 +57,33 @@
     NSManagedObjectContext *currentContext = [NSManagedObjectContext MR_contextForCurrentThread];
     Item *item = [Item MR_createInContext:currentContext];
     
-    switch (self.amountOfDummies) {
-        case 0:
-            item.comment = @"Cannula";
-            break;
-        case 1:
-            item.comment = @"Blood Gas";
-            break;
-        case 2:
-            item.comment = @"Blood Test";
-            break;
-        default:
-            break;
+    if([[Item MR_findAll] count] <2)
+    {
+        switch (self.amountOfDummies) {
+            case 0:
+                item.comment = @"Cannula";
+                break;
+            case 1:
+                item.comment = @"Blood Gas";
+                break;
+            case 2:
+                item.comment = @"Blood Test";
+                break;
+            default:
+                break;
+        }
+        
+        self.amountOfDummies++;
+        //blocking
+        [currentContext MR_saveToPersistentStoreAndWait];
     }
-    
-    self.amountOfDummies++;
-    //blocking
-    [currentContext MR_saveToPersistentStoreAndWait];
     
     [self.searchResultsTableView reloadData];
 }
 
 - (void)viewDidLoad
 {
-        self.amountOfDummies = 0;
+    self.amountOfDummies = 0;
     UIBarButtonItem * addNewButton = [[UIBarButtonItem alloc]initWithTitle:@"New Proceedure" style:UIBarButtonItemStylePlain target:self action:@selector(showNewProceedureScreen)];
     self.navigationItem.rightBarButtonItem = addNewButton;
     
@@ -105,6 +111,11 @@
     
     if (tableView == self.searchDisplayController.searchResultsTableView)
     {
+        
+        if([self.filteredProcedures count] == 0)
+        {
+            return 1;
+        }
         return [self.filteredProcedures count];
     }
     else
@@ -118,9 +129,30 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
+    UITableViewCell *cell  = nil;
+    
+    static NSString *identifier = @"ProceedureSummaryCell";
+    cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+    
+    if(cell == nil)
+    {
+        cell = [self.searchResultsTableView dequeueReusableCellWithIdentifier:identifier];
+    }
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    
+    
+    if (tableView == self.searchDisplayController.searchResultsTableView)
+    {
+        if([self.filteredProcedures count] == 0)
+        {
+            cell.textLabel.text = [NSString stringWithFormat:@"Add %@",self.searchBar.text];
+            cell.backgroundColor = [UIColor greenColor];
+            
+            return cell;
+        }
+    }
+    
     Item *thisItem;
-    
-    
     if (tableView == self.searchDisplayController.searchResultsTableView)
     {
         thisItem = [self.filteredProcedures objectAtIndex:indexPath.row];
@@ -129,19 +161,7 @@
     {
         thisItem = [self.proceeduresToDisplay objectAtIndex:indexPath.row];
     }
-    
-    UITableViewCell *cell  = nil;
 
-    static NSString *identifier = @"ProceedureSummaryCell";
-    cell = [tableView dequeueReusableCellWithIdentifier:identifier];
-    
-    if(cell == nil)
-    {
-        NSLog(@"Cell was nil");
-        
-        cell = [[UITableViewCell alloc] init];
-    }
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.textLabel.text = [NSString stringWithFormat:@"%@", thisItem.comment];
     
     return cell;
@@ -158,18 +178,43 @@
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-   // TagSelectedSegue
-   Item *thisItem;
-   NSIndexPath *indexPath = [self.searchResultsTableView indexPathForSelectedRow];
     
-    if (self.searchResultsTableView == self.searchDisplayController.searchResultsTableView)
+    
+    Item *thisItem;
+    NSIndexPath *indexPath = [self.searchResultsTableView indexPathForSelectedRow];
+    
+    if (![self.searchBar.text empty])
     {
-        thisItem = [self.filteredProcedures objectAtIndex:indexPath.row];
+        if([self.filteredProcedures count] == 0)
+        {
+            if(![self.searchBar.text empty])
+            {
+                NSManagedObjectContext *currentContext = [NSManagedObjectContext MR_contextForCurrentThread];
+                Item *item = [Item MR_createInContext:currentContext];
+                
+                item.comment = self.searchBar.text;
+                [currentContext MR_saveToPersistentStoreAndWait];
+                
+                thisItem = item;
+                
+                    [self.searchResultsTableView reloadData];
+            }
+        }
+        else
+        {
+             thisItem = [self.filteredProcedures objectAtIndex:indexPath.row];
+        }
+
     }
     else
     {
-        thisItem = [self.proceeduresToDisplay objectAtIndex:indexPath.row];
+         thisItem = [self.proceeduresToDisplay objectAtIndex:indexPath.row];
     }
+    
+    
+    
+   // TagSelectedSegue
+   
     
     AddItemViewController *viewController = segue.destinationViewController;
     
