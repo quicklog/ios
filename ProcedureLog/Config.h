@@ -11,8 +11,7 @@
 
 //API CONFIG
 #define API_ROOT @"https://quicklog.herokuapp.com/api/1/"
-
-
+#define _AFNETWORKING_ALLOW_INVALID_SSL_CERTIFICATES_. 
 
 //AUDIO CONFIG
 #define MAX_RECORDING_TIME 20
