@@ -54,7 +54,7 @@
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"timestamp != nil"];
     [self.theProceedures addObjectsFromArray:[Item MR_findAllSortedBy:@"timestamp" ascending:YES withPredicate:predicate]];
     
-    [super viewWillAppear:animated];
+    //[super viewWillAppear:animated];
 }
 
 -(void)showNewProceedureScreen
@@ -117,7 +117,7 @@
     cell.textLabel.text = [NSString stringWithFormat:@"%@", faketag];
     
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    [formatter setDateFormat:@"d/m/Y HH:MM:SS"];
+    [formatter setDateFormat:@"d/MM/Y hh:mm:ss"];
     
     NSString *test = [formatter stringFromDate:thisItem.timestamp];
     
